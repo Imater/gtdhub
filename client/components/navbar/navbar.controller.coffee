@@ -12,9 +12,11 @@ angular.module 'gtdhubApp'
     title: 'Blog'
     link: '/blog'
   ]
+  $scope.Auth = {}
+  $scope.isAdmin = Auth.isAdmin
+  $scope.Auth.isAdmin = Auth.isAdmin
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
-  $scope.isAdmin = Auth.isAdmin
   $scope.getCurrentUser = Auth.getCurrentUser
 
   $scope.logout = ->

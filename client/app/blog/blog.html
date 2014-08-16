@@ -1,17 +1,40 @@
 <div class="blog-main-wrap">
     <div ng-include="'components/navbar/navbar.html'"></div>
-    <div class="row">
-        <div class="col-sm-9">
-            <div class="article-wrap">
-                <h2 ng-bind="article.title"></h2>
-                <div class="article-html" ng-bind-html="article.html">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="article-wrap" ng-repeat="article in articles track by $index">
+                    <h2 ng-bind="article.title"></h2>
+                    <div class="article-html" ng-bind-html="article.html">
+                    </div>
+                    <div class="admin-toolbar text-right" ng-show="isAdmin()">
+                        <div class="btn-group dropdown text-left">
+                            <button type="button" class="btn btn-danger">
+                                <i class="fa fa-pencil"></i>
+                                &nbsp;Edit
+                            </button>
+                            <button type="button"
+                                    class="btn btn-danger dropdown-toggle"
+                                    data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Delete</a></li>
+                                <li><a href="#">Stop publish</a></li>
+                                <li><a href="#">Move to top</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3 blog-filter-side-menu">
-            <ul class="nav blog-filter-ul" ng-if="tree = filterBlogTreeMenu">
-                <div ng-include="'/blog-filter-line.html'" class="first-level"></div>
-            </ul>
+            <div class="col-sm-3 blog-filter-side-menu">
+                <ul class="nav blog-filter-ul" ng-if="tree = filterBlogTreeMenu">
+                    <div ng-include="'/blog-filter-line.html'" class="first-level"></div>
+                </ul>
+            </div>
         </div>
     </div>
 
