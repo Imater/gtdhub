@@ -1,7 +1,7 @@
-trello
+Gtdhub
 ======
 
-Trello sample app for MEAN stack
+Gtdhub sample app for MEAN stack
 
 Objective of the project - studying MEAN stack on sample application
 
