@@ -1,8 +1,28 @@
 'use strict'
 
-angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth) ->
+angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth, $timeout) ->
 
   $scope.isAdmin = Auth.isAdmin
+
+  $scope.startEdit = (el, article) ->
+    articleHtml = $(el.target).parents('.article-wrap:first').find('.article-html')
+    articleHtml.animate {'margin-top': '67px'}, 500, ()->
+      $scope.$apply ()->
+        article.edit = true
+        $timeout ()->
+          articleHtml.css('margin-top', '0px')
+          article.editShow = true
+        , 100
+    return
+
+  $scope.finishEdit = (el, article) ->
+    console.info 'fin'
+    article.editShow = false
+    $timeout ()->
+      article.edit = false
+    , 50
+    return
+
 
   $scope.filterBlogTreeMenu = {
     title: "All blog"
@@ -42,8 +62,6 @@ angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth) ->
           <img src="app/uploads/1.jpg" style="font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; background-color: rgb(255, 255, 255);"><br>
           <a href="http://blog.technicondesign.com/2014/05/technicon-design-france-team-received.html">пресс-релизе</a> директор департамента дизайна Гарэт Дэвис.
         </p>
-        <iframe width="560" height="349" src="http://www.youtube.com/embed/ndcG_4A38Z4?wmode=opaque" frameborder="0" allowfullscreen="" style="margin-bottom: 0px; border: 0px; font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; line-height: 20.799999237060547px; background-color: rgb(255, 255, 255);">
-        </iframe>
         <p>
           Фотографии концепта
         </p>
@@ -62,8 +80,6 @@ angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth) ->
           <img src="app/uploads/1.jpg" style="font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; background-color: rgb(255, 255, 255);"><br>
           <a href="http://blog.technicondesign.com/2014/05/technicon-design-france-team-received.html">пресс-релизе</a> директор департамента дизайна Гарэт Дэвис.
         </p>
-        <iframe width="560" height="349" src="http://www.youtube.com/embed/ndcG_4A38Z4?wmode=opaque" frameborder="0" allowfullscreen="" style="margin-bottom: 0px; border: 0px; font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; line-height: 20.799999237060547px; background-color: rgb(255, 255, 255);">
-        </iframe>
         <p>
           Фотографии концепта
         </p>
@@ -73,7 +89,7 @@ angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth) ->
         </p>
     '''
   ,
-    title: 'Третья новость'
+    title: 'Третья но'
     html: '''
         <p>
           Ну раз уж пятница, то можно и помечтать, хотя это будущее не так уж далеко, как кажется на первый взгляд. Парижская дизайнерская студия Technicon Design недавно победила в конкурсе <a href="http://thedesignawards.co.uk/yachtandaviation/">Yacht &amp; Aviation Award</a> с их проектом IXION Windowless Jet Concept. Идея заключается в панорамной съемке внешними камерами самолета и отображении этой картинки на мониторах с высоким разрешением, которые вмонтированы в стены и потолок самолета.
@@ -82,8 +98,6 @@ angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth) ->
           <img src="app/uploads/1.jpg" style="font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; background-color: rgb(255, 255, 255);"><br>
           <a href="http://blog.technicondesign.com/2014/05/technicon-design-france-team-received.html">пресс-релизе</a> директор департамента дизайна Гарэт Дэвис.
         </p>
-        <iframe width="560" height="349" src="http://www.youtube.com/embed/ndcG_4A38Z4?wmode=opaque" frameborder="0" allowfullscreen="" style="margin-bottom: 0px; border: 0px; font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; line-height: 20.799999237060547px; background-color: rgb(255, 255, 255);">
-        </iframe>
         <p>
           Фотографии концепта
         </p>

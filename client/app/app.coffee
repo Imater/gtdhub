@@ -8,6 +8,7 @@ angular.module 'gtdhubApp', [
   'ui.router',
   'ui.bootstrap'
   'contenteditable'
+  'angular-redactor'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider
