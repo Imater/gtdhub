@@ -1,0 +1,33 @@
+<div class="blog-main-wrap">
+    <div ng-include="'components/navbar/navbar.html'"></div>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="article-wrap">
+                <h2 ng-bind="article.title"></h2>
+                <div class="article-html" ng-bind-html="article.html">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 blog-filter-side-menu">
+            <ul class="nav blog-filter-ul" ng-if="tree = filterBlogTreeMenu">
+                <div ng-include="'/blog-filter-line.html'" class="first-level"></div>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="/blog-filter-line.html">
+        <div class="blog-filter-line">
+            <li class="blog-filter-li">
+                <label>
+                    <input type="checkbox" checked> {{tree.title}}
+                    <span class="cnt">({{tree.cnt}})</span>
+                </label>
+                <ul class="blog-filter-ul">
+                    <li ng-repeat="tree in tree.childs">
+                        <div ng-include="'/blog-filter-line.html'"></div>
+                    </li>
+                </ul>
+            </li>
+        </div>
+    </script>
+</div>

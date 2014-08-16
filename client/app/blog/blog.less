@@ -1,0 +1,41 @@
+.blog-main-wrap {
+  @treePadding: 15px;
+  @padding: 5px;
+
+  .blog-filter-side-menu {
+    margin-top: 20px;
+    .blog-filter-ul {
+      list-style: none;
+      padding-left: @treePadding;
+      .blog-filter-li {
+        vertical-align: middle;
+        input[type=checkbox] {
+          margin-right: @padding;
+        }
+        label {
+          font-weight: normal;
+        }
+        padding: 2px @padding;
+      }
+    }
+  }
+
+  .first-level > .blog-filter-line > .blog-filter-li > label {
+    background: #EEE;
+    display: block;
+    padding: @padding;
+    text-align: center;
+  }
+
+  .article-wrap {
+    padding: 0 50px;
+    h2 {
+      margin-bottom: 20px;
+    }
+    .article-html {
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}

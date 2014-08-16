@@ -1,0 +1,13 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<h4>Cards:</h4>
+<div class="cards-cols">
+    <div class="col-left">
+        <div ui-view="treeView"></div>
+    </div>
+    <div class="col-center">
+        <div ui-view="stageView"></div>
+    </div>
+    <div class="col-right">
+        <div ui-view="historyView"></div>
+    </div>
+</div>
