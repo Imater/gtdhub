@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth, $timeout, $http) ->
+angular.module('gtdhubApp')
+.controller 'BlogCtrl', ($scope, Auth, $timeout, $http, socket) ->
 
   $scope.isAdmin = Auth.isAdmin
 
@@ -12,16 +13,17 @@ angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth, $timeout, $htt
     , 50
     $timeout ()->
       article.editShow = true
-      articleHtml.find('.redactor_toolbar').slideDown 300, ()->
+      articleHtml.find('.redactor_toolbar').slideDown 300
     , 200
     return
 
   $scope.finishEdit = (el, article) ->
     articleHtml = $(el.target).parents('.article-wrap:first')
-    articleHtml.find('.redactor_toolbar').slideUp 150, ()->
-      $scope.$apply ()->
-        article.editShow = false
-        article.edit = false
+    articleHtml.find('.redactor_toolbar').slideUp 150
+    $timeout ()->
+      article.editShow = false
+      article.edit = false
+    , 160
 
     return
 
@@ -54,64 +56,9 @@ angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth, $timeout, $htt
     ]
   }
 
-  $http.get('/api/articles').success (articles) ->
-    $scope.articles = articles
-    socket.syncUpdates 'article', $scope.articles
+  refreshArticles = ->
+    $http.get('/api/articles').success (articles) ->
+      $scope.articles = articles
+      socket.syncUpdates 'article', $scope.articles
 
-
-  $scope.articles2 = [
-    title: 'IXION — новый концепт «прозрачного» самолета'
-    html: '''
-        <p>
-          Ну раз уж пятница, то можно и помечтать, хотя это будущее не так уж далеко, как кажется на первый взгляд. Парижская дизайнерская студия Technicon Design недавно победила в конкурсе <a href="http://thedesignawards.co.uk/yachtandaviation/">Yacht &amp; Aviation Award</a> с их проектом IXION Windowless Jet Concept. Идея заключается в панорамной съемке внешними камерами самолета и отображении этой картинки на мониторах с высоким разрешением, которые вмонтированы в стены и потолок самолета.
-        </p>
-        <p>
-          <img src="app/uploads/1.jpg" style="font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; background-color: rgb(255, 255, 255);"><br>
-          <a href="http://blog.technicondesign.com/2014/05/technicon-design-france-team-received.html">пресс-релизе</a> директор департамента дизайна Гарэт Дэвис.
-        </p>
-        <p>
-          Фотографии концепта
-        </p>
-        <p>
-          <br>
-          Но Technicon Design, конечно же, не первые пришли на рынок с этой идеей. Ранее в 2012 году на Парижском авиашоу Airbus уже<a href="https://www.youtube.com/watch?v=9OsOFZCwlT8">презентовал</a> концепт пассажирского авиалайнера с вмонтированными мониторами по всему салону. А бостонская компания Spike Aerospace пошла еще дальше и уже создает такой джет <a href="http://www.spikeaerospace.com/s-512-supersonic-jet/">S-512</a>, который будет курсировать по маршруту Лондон &mdash; Нью-Йорк со скоростью 1'770 км/час и перевозить на борту до 18 пассажиров. Начало продаж S-512 запланировано на декабрь 2018 года, предварительная стоимость £48'000'000.
-        </p>
-    '''
-  ,
-    title: 'Новость дня'
-    html: '''
-        <p>
-          Ну раз уж пятница, то можно и помечтать, хотя это будущее не так уж далеко, как кажется на первый взгляд. Парижская дизайнерская студия Technicon Design недавно победила в конкурсе <a href="http://thedesignawards.co.uk/yachtandaviation/">Yacht &amp; Aviation Award</a> с их проектом IXION Windowless Jet Concept. Идея заключается в панорамной съемке внешними камерами самолета и отображении этой картинки на мониторах с высоким разрешением, которые вмонтированы в стены и потолок самолета.
-        </p>
-        <p>
-          <img src="app/uploads/1.jpg" style="font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; background-color: rgb(255, 255, 255);"><br>
-          <a href="http://blog.technicondesign.com/2014/05/technicon-design-france-team-received.html">пресс-релизе</a> директор департамента дизайна Гарэт Дэвис.
-        </p>
-        <p>
-          Фотографии концепта
-        </p>
-        <p>
-          <br>
-          Но Technicon Design, конечно же, не первые пришли на рынок с этой идеей. Ранее в 2012 году на Парижском авиашоу Airbus уже<a href="https://www.youtube.com/watch?v=9OsOFZCwlT8">презентовал</a> концепт пассажирского авиалайнера с вмонтированными мониторами по всему салону. А бостонская компания Spike Aerospace пошла еще дальше и уже создает такой джет <a href="http://www.spikeaerospace.com/s-512-supersonic-jet/">S-512</a>, который будет курсировать по маршруту Лондон &mdash; Нью-Йорк со скоростью 1'770 км/час и перевозить на борту до 18 пассажиров. Начало продаж S-512 запланировано на декабрь 2018 года, предварительная стоимость £48'000'000.
-        </p>
-    '''
-  ,
-    title: 'Третья но'
-    html: '''
-        <p>
-          Ну раз уж пятница, то можно и помечтать, хотя это будущее не так уж далеко, как кажется на первый взгляд. Парижская дизайнерская студия Technicon Design недавно победила в конкурсе <a href="http://thedesignawards.co.uk/yachtandaviation/">Yacht &amp; Aviation Award</a> с их проектом IXION Windowless Jet Concept. Идея заключается в панорамной съемке внешними камерами самолета и отображении этой картинки на мониторах с высоким разрешением, которые вмонтированы в стены и потолок самолета.
-        </p>
-        <p>
-          <img src="app/uploads/1.jpg" style="font-size: 13px; color: rgb(0, 0, 0); font-family: Verdana, sans-serif; background-color: rgb(255, 255, 255);"><br>
-          <a href="http://blog.technicondesign.com/2014/05/technicon-design-france-team-received.html">пресс-релизе</a> директор департамента дизайна Гарэт Дэвис.
-        </p>
-        <p>
-          Фотографии концепта
-        </p>
-        <p>
-          <br>
-          Но Technicon Design, конечно же, не первые пришли на рынок с этой идеей. Ранее в 2012 году на Парижском авиашоу Airbus уже<a href="https://www.youtube.com/watch?v=9OsOFZCwlT8">презентовал</a> концепт пассажирского авиалайнера с вмонтированными мониторами по всему салону. А бостонская компания Spike Aerospace пошла еще дальше и уже создает такой джет <a href="http://www.spikeaerospace.com/s-512-supersonic-jet/">S-512</a>, который будет курсировать по маршруту Лондон &mdash; Нью-Йорк со скоростью 1'770 км/час и перевозить на борту до 18 пассажиров. Начало продаж S-512 запланировано на декабрь 2018 года, предварительная стоимость £48'000'000.
-        </p>
-    '''
-
-  ]
+  refreshArticles()
