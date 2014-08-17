@@ -4,5 +4,7 @@
 # ===========================
 
 # MongoDB connection options
-module.exports = mongo:
-  uri: "mongodb://localhost/gtdhub-test"
+module.exports =
+  mongo:
+    uri: "mongodb://localhost/gtdhub-test"
+  seedDB: true

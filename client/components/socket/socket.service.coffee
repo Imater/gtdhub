@@ -2,8 +2,7 @@
 
 'use strict'
 
-angular.module 'gtdhubApp'
-.factory 'socket', (socketFactory) ->
+angular.module('gtdhubApp').factory 'socket', (socketFactory) ->
   retryInterval = 5000
   retryTimer = undefined
   clearInterval retryTimer

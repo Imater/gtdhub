@@ -51,14 +51,14 @@ angular.module('gtdhubApp')
         cnt: 3
       ]
     ,
-      title: 'HTML'
+      title: 'HTML5'
       cnt: 12
     ]
   }
 
-  refreshArticles = ->
+  $scope.refreshArticles = ->
     $http.get('/api/articles').success (articles) ->
       $scope.articles = articles
       socket.syncUpdates 'article', $scope.articles
 
-  refreshArticles()
+  $scope.refreshArticles()

@@ -6,7 +6,35 @@ module.exports = (config) ->
   # base path, that will be used to resolve files and exclude
     basePath: ""
 
-    reporters: ['progress', 'junit']
+    plugins3: [
+      'karma-phantomjs-launcher',
+      'karma-jasmine'
+      'karma-coverage'
+      'karma-coffee-preprocessor'
+    ]
+
+    preprocessors:
+      "client/**/!(*spec).coffee": ["coverage"]
+      "client/**/*.spec.coffee": ["coffee"]
+
+    coffeePreprocessor:
+      options: {
+        sourceMap: true
+      }
+
+    coverageReporter:
+      instrumenter:
+        'client/app/blog/**/*.coffee': ['ibrick']
+        #'client/app/**/*.coffee': ['istanbul']
+      type: "html"
+      dir: "coverage/"
+
+    reporters: [
+      #'junit'
+      #'dots'
+      'progress'
+      'coverage'
+    ]
 
   # testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ["jasmine"]
@@ -26,19 +54,16 @@ module.exports = (config) ->
       "client/bower_components/angular-ui-router/release/angular-ui-router.js"
       #"client/app/app.js"
       "client/app/app.coffee"
+      "client/**/*.coffee"
       #"client/app/**/*.js"
-      "client/app/**/*.coffee"
-      #"client/components/**/*.js"
-      "client/components/**/*.coffee"
+      #"client/app/**/*.coffee"
+      #"client/components/**/*.coffee"
+      #"client/components/**/*.coffee"
       #"client/app/**/*.jade"
       #"client/components/**/*.jade"
-      "client/app/**/*.html"
-      "client/components/**/*.html"
+      #"client/app/**/*.html"
+      #"client/components/**/*.html"
     ]
-    preprocessors:
-      #"**/*.jade": "ng-jade2js"
-      "**/*.html": "html2js"
-      "**/*.coffee": "coffee"
 
     ngHtml2JsPreprocessor:
       stripPrefix: "client/"
@@ -48,14 +73,15 @@ module.exports = (config) ->
 
 
   # list of files / patterns to exclude
-    exclude: []
+    exclude: [
+    ]
 
   # web server port
     port: 8080
 
   # level of logging
   # possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-    logLevel: config.LOG_INFO
+    logLevel: config.LOG_DEBUG
 
   # enable / disable watching file and executing tests whenever any file changes
     autoWatch: false

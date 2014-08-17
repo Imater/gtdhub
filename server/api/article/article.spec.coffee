@@ -6,6 +6,7 @@ describe "GET /api/articles", ->
   it "should respond with JSON array", (done) ->
     request(app).get("/api/articles").expect(200).expect("Content-Type", /json/).end (err, res) ->
       return done(err)  if err
+      console.info '1 =', res
       res.body.should.be.instanceof Array
       done()
 

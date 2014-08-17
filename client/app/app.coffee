@@ -1,16 +1,14 @@
 'use strict'
 
-angular.module 'gtdhubApp', [
+angular.module('gtdhubApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap'
-#  'contenteditable'
   'angular-redactor'
-]
-.config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
+]).config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider
   .otherwise '/cards/tree'
 

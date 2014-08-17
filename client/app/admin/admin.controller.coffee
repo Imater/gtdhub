@@ -1,7 +1,6 @@
 'use strict'
 
-angular.module 'gtdhubApp'
-.controller 'AdminCtrl', ($scope, $http, Auth, User) ->
+angular.module("gtdhubApp").controller 'AdminCtrl', ($scope, $http, Auth, User) ->
 
   $http.get '/api/users'
   .success (users) ->

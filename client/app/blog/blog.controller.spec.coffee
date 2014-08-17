@@ -19,10 +19,10 @@ describe 'Controller: BlogCtrl', ->
     )
     $httpBackend = _$httpBackend_
     $httpBackend.expectGET('/api/articles').respond [
-      'HTML5 Boilerplate'
-      'AngularJS'
-      'Karma'
-      'Express'
+      {title: 'News1', date: new Date, html: 'text', active: true}
+      {title: 'News2 not active', date: new Date, html: 'text', active: false}
+      {title: 'News3 not active', date: new Date, html: 'text', active: false}
+      {title: 'News4', date: new Date, html: 'text', active: true}
     ]
     $httpBackend.flush()
     timeout = _$timeout_

@@ -1,7 +1,6 @@
 'use strict'
 
-angular.module 'gtdhubApp'
-.controller 'NavbarCtrl', ($scope, $location, Auth) ->
+angular.module('gtdhubApp').controller 'NavbarCtrl', ($scope, $location, Auth) ->
   $scope.menu = [
     title: 'Home'
     link: '/'

@@ -1,7 +1,6 @@
 'use strict'
 
-angular.module 'gtdhubApp'
-.config ($stateProvider) ->
+angular.module('gtdhubApp').config ($stateProvider) ->
   $stateProvider
   .state 'admin',
     url: '/admin'
