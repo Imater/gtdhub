@@ -5,4 +5,4 @@
 
 # MongoDB connection options
 module.exports = mongo:
-  uri: "mongodb://localhost/trello-test"
+  uri: "mongodb://localhost/gtdhub-test"

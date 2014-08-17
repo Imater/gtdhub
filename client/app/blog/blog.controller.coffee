@@ -1,26 +1,28 @@
 'use strict'
 
-angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth, $timeout) ->
+angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth, $timeout, $http) ->
 
   $scope.isAdmin = Auth.isAdmin
 
   $scope.startEdit = (el, article) ->
-    articleHtml = $(el.target).parents('.article-wrap:first').find('.article-html')
-    articleHtml.animate {'margin-top': '67px'}, 500, ()->
-      $scope.$apply ()->
-        article.edit = true
-        $timeout ()->
-          articleHtml.css('margin-top', '0px')
-          article.editShow = true
-        , 100
+    article.edit = true
+    articleHtml = $(el.target).parents('.article-wrap:first')
+    $timeout ()->
+      article.editShow = true
+    , 50
+    $timeout ()->
+      article.editShow = true
+      articleHtml.find('.redactor_toolbar').slideDown 300, ()->
+    , 200
     return
 
   $scope.finishEdit = (el, article) ->
-    console.info 'fin'
-    article.editShow = false
-    $timeout ()->
-      article.edit = false
-    , 50
+    articleHtml = $(el.target).parents('.article-wrap:first')
+    articleHtml.find('.redactor_toolbar').slideUp 150, ()->
+      $scope.$apply ()->
+        article.editShow = false
+        article.edit = false
+
     return
 
 
@@ -52,7 +54,12 @@ angular.module('gtdhubApp').controller 'BlogCtrl', ($scope, Auth, $timeout) ->
     ]
   }
 
-  $scope.articles = [
+  $http.get('/api/articles').success (articles) ->
+    $scope.articles = articles
+    socket.syncUpdates 'article', $scope.articles
+
+
+  $scope.articles2 = [
     title: 'IXION — новый концепт «прозрачного» самолета'
     html: '''
         <p>

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.7 (Mac OS X)" package="" timestamp="2014-08-16T00:59:13" id="0" hostname="MacBook-Pro.Dlink" tests="18" errors="1" failures="18" time="0.043">
+  <testsuite name="PhantomJS 1.9.7 (Mac OS X)" package="" timestamp="2014-08-16T16:49:37" id="0" hostname="MacBook-Pro.local" tests="18" errors="1" failures="18" time="0.056">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
     </properties>
-    <testcase name="should ..." time="0.014" classname="PhantomJS 1.9.7 (Mac OS X).Controller: BlogCtrl">
+    <testcase name="should ..." time="0.03" classname="PhantomJS 1.9.7 (Mac OS X).Controller: BlogCtrl">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
@@ -64,7 +64,7 @@ http://errors.angularjs.org/1.2.20/$injector/modulerr?p0=gtdhubApp&amp;p1=Error%
     at /Users/iBook/Neteagles/gtdhub/client/bower_components/angular/angular.js:3859
 </failure>
     </testcase>
-    <testcase name="should do something" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Service: StageSrv">
+    <testcase name="should do something" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).Service: StageSrv">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
@@ -148,7 +148,7 @@ http://errors.angularjs.org/1.2.20/$injector/modulerr?p0=gtdhubApp&amp;p1=Error%
     at /Users/iBook/Neteagles/gtdhub/client/app/cards/tree/tree.service.spec.js:16
 </failure>
     </testcase>
-    <testcase name="addChild method" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).Service: Tree">
+    <testcase name="addChild method" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Service: Tree">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
@@ -184,7 +184,7 @@ http://errors.angularjs.org/1.2.20/$injector/modulerr?p0=gtdhubApp&amp;p1=Error%
     at /Users/iBook/Neteagles/gtdhub/client/app/cards/tree/tree.service.spec.js:31
 </failure>
     </testcase>
-    <testcase name="find by title" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).Service: Tree">
+    <testcase name="find by title" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Service: Tree">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
@@ -202,7 +202,7 @@ http://errors.angularjs.org/1.2.20/$injector/modulerr?p0=gtdhubApp&amp;p1=Error%
     at /Users/iBook/Neteagles/gtdhub/client/app/cards/tree/tree.service.spec.js:40
 </failure>
     </testcase>
-    <testcase name="getPath testing" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).Service: Tree">
+    <testcase name="getPath testing" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Service: Tree">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
@@ -238,7 +238,7 @@ http://errors.angularjs.org/1.2.20/$injector/modulerr?p0=gtdhubApp&amp;p1=Error%
     at /Users/iBook/Neteagles/gtdhub/client/app/main/main.controller.spec.js:18
 </failure>
     </testcase>
-    <testcase name="should do something" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).Service: Hierarhy">
+    <testcase name="should do something" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Service: Hierarhy">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
@@ -255,7 +255,7 @@ http://errors.angularjs.org/1.2.20/$injector/modulerr?p0=gtdhubApp&amp;p1=Error%
       <failure type="">Expected false to be true.
 </failure>
     </testcase>
-    <testcase name="should do something" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).Service: Id">
+    <testcase name="should do something" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Service: Id">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
@@ -272,7 +272,7 @@ http://errors.angularjs.org/1.2.20/$injector/modulerr?p0=gtdhubApp&amp;p1=Error%
       <failure type="">Expected false to be true.
 </failure>
     </testcase>
-    <testcase name="increment" time="0.001" classname="PhantomJS 1.9.7 (Mac OS X).Service: Id">
+    <testcase name="increment" time="0.002" classname="PhantomJS 1.9.7 (Mac OS X).Service: Id">
       <failure type="">Error: [$injector:modulerr] Failed to instantiate module gtdhubApp due to:
 Error: [$injector:modulerr] Failed to instantiate module contenteditable due to:
 Error: [$injector:nomod] Module &apos;contenteditable&apos; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.

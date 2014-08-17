@@ -6,6 +6,6 @@ module.exports =
 
 # MongoDB connection options
   mongo:
-    uri: "mongodb://localhost/trello-dev"
+    uri: "mongodb://localhost/gtdhub-dev"
 
   seedDB: true
