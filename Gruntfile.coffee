@@ -42,6 +42,7 @@ module.exports = (grunt) ->
       injectJS:
         files: [
           "<%= yeoman.client %>/{app,components}/**/*.js"
+          "<%= yeoman.client %>/{app,components}/**/*.coffee"
           "!<%= yeoman.client %>/{app,components}/**/*.spec.js"
           "!<%= yeoman.client %>/{app,components}/**/*.mock.js"
           "!<%= yeoman.client %>/app/app.js"
@@ -53,7 +54,7 @@ module.exports = (grunt) ->
         tasks: ["injector:css"]
 
       mochaTest:
-        files: ["server/**/*.spec.js"]
+        files: ["server/**/*.spec.js", "server/**/*.spec.coffee"]
         tasks: [
           "env:test"
           "mochaTest"
@@ -411,7 +412,7 @@ module.exports = (grunt) ->
       options:
         reporter: "spec"
 
-      src: ["server/**/*.spec.js"]
+      src: ["server/**/*.spec.js", "server/**/*.spec.coffee"]
 
     protractor:
       options:
@@ -584,6 +585,7 @@ module.exports = (grunt) ->
         "env:all"
         "env:test"
         "mochaTest"
+        "watch:mochaTest"
       ]
     else if target is "client"
       grunt.task.run [
