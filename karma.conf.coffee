@@ -24,7 +24,7 @@ module.exports = (config) ->
 
     coverageReporter:
       instrumenter:
-        'client/app/blog/**/*.coffee': ['istanbul']
+        'client/app/blog/**/*.coffee': ['ibrik']
         #'client/app/**/*.coffee': ['istanbul']
       type: "html"
       dir: "coverage/"

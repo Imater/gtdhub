@@ -1,6 +1,8 @@
 'use strict'
 
+
 describe 'Service: Auth', ->
+  authRequestHandler = undefined
   # load the service's module
   beforeEach module('gtdhubApp')
 
@@ -10,7 +12,7 @@ describe 'Service: Auth', ->
   beforeEach inject((_Auth_, _$httpBackend_) ->
     Auth = _Auth_
     $httpBackend = _$httpBackend_
-    $httpBackend.expectPOST('/auth/local').respond true
+    authRequestHandler = $httpBackend.when('POST', '/auth/local').respond true
     $httpBackend.expectGET('/api/users/me').respond true
   )
   it 'should do something', ->
@@ -30,6 +32,7 @@ describe 'Service: Auth', ->
       email: 'adminadmin.com'
       password: 'admin'
     }
+    $httpBackend.when('POST', '/auth/local').respond 401, ''
     Auth.login(user).then (data)->
       expect(data).toBe true
     $httpBackend.flush()
