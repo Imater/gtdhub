@@ -108,7 +108,7 @@ module.exports = (grunt) ->
           "<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}"
         ]
         options:
-          livereload: true
+          livereload: 35730
 
       express:
         files: ["server/**/*.{js,json}"]
@@ -117,7 +117,7 @@ module.exports = (grunt) ->
           "wait"
         ]
         options:
-          livereload: true
+          livereload: 35730
           nospawn: true
           #Without this option specified express won't be reloaded
 
@@ -159,6 +159,11 @@ module.exports = (grunt) ->
             "!<%= yeoman.dist %>/Procfile"
           ]
         ]
+      dev: [
+        "<%= yeoman.client %>/{app,components}/**/*.{js,map}"
+        "!<%= yeoman.client %>/{components}/redactor/**/*.js"
+      ]
+
 
       server: ".tmp"
 
@@ -639,5 +644,8 @@ module.exports = (grunt) ->
     "newer:jshint"
     "test"
     "build"
+  ]
+  grunt.registerTask "clean-dev", [
+    "clean:dev"
   ]
   return
