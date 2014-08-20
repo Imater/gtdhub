@@ -1,20 +1,20 @@
 <div class="btn-group dropdown text-left">
     <button type="button"
             ng-if="!article.edit"
-            ng-click="startEdit($event, article)"
-            class="btn btn-info btn-xs">
-        <i class="fa fa-pencil"></i>
-        Edit
+            ng-click="addArticle($event, article)"
+            class="btn btn-success btn-xs">
+        <i class="fa fa-plus"></i>
+        Add article
     </button>
     <button type="button"
             ng-if="article.edit"
             ng-click="finishEdit($event, article)"
-            class="btn btn-info btn-xs">
+            class="btn btn-success btn-xs">
         <i class="fa fa-save"></i>
         Save
     </button>
     <button type="button"
-            class="btn btn-info btn-xs dropdown-toggle"
+            class="btn btn-success btn-xs dropdown-toggle"
             data-toggle="dropdown">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
