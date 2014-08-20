@@ -30,6 +30,12 @@ module.exports = (grunt) ->
           script: "server/app.coffee"
           debug: true
 
+      devNoDebug:
+        options:
+          port: process.env.PORT or 9000
+          script: "server/app.coffee"
+          debug: false
+
       prod:
         options:
           script: "dist/server/app.coffee"
@@ -93,7 +99,7 @@ module.exports = (grunt) ->
 
       coffeeTest:
         files: ["<%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}"]
-        tasks: ["karma"]
+        tasks: []
 
       gruntfile:
         files: ["Gruntfile.js"]
@@ -120,6 +126,14 @@ module.exports = (grunt) ->
           livereload: 35730
           nospawn: true
           #Without this option specified express won't be reloaded
+
+      protractor:
+        files: [
+          "e2e/**/*.coffee"
+        ]
+        tasks: [
+          "test:e2eWatch"
+        ]
 
 
     # Make sure code styles are up to par and there are no obvious mistakes
@@ -421,12 +435,12 @@ module.exports = (grunt) ->
 
     protractor:
       options:
-        configFile: "protractor.conf.js"
+        configFile: "./protractor.conf.coffee"
 
       chrome:
         options:
-          args:
-            browser: "chrome"
+          configFile: "./protractor.conf.coffee"
+          args: {}
 
     env:
       test:
@@ -612,8 +626,13 @@ module.exports = (grunt) ->
         "injector"
         "bowerInstall"
         "autoprefixer"
-        "express:dev"
+        "express:devNoDebug"
         "protractor"
+      ]
+    else if target is "e2eWatch"
+      grunt.task.run [
+        "protractor"
+        "watch:protractor"
       ]
     else
       grunt.task.run [
