@@ -13,6 +13,9 @@ exports.config =
 # with relative paths will be prepended with this.
   baseUrl: "http://localhost:" + (process.env.PORT or "9000")
 
+  params: '---start-maximized --disable-popup-blocking'
+
+  dfkaljdfa: 'dsf'
 # If true, only chromedriver will be started, not a standalone selenium.
 # Tests for browsers other than chrome will not run.
   chromeOnly: false

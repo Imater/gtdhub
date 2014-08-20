@@ -1,6 +1,6 @@
 screenshot = require("../screenshot.po")
 
-#e2e test......
+#e2e test.......................
 "use strict"
 describe "Login View", ->
   page = undefined

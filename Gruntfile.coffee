@@ -60,7 +60,7 @@ module.exports = (grunt) ->
         tasks: ["injector:css"]
 
       mochaTest:
-        files: ["server/**/*.spec.js", "server/**/*.spec.coffee"]
+        files: ["server/**/*.coffee", "server/**/*.spec.coffee"]
         tasks: [
           "env:test"
           "mochaTest"
@@ -436,11 +436,12 @@ module.exports = (grunt) ->
     protractor:
       options:
         configFile: "./protractor.conf.coffee"
+        args: {
+        }
 
       chrome:
         options:
           configFile: "./protractor.conf.coffee"
-          args: {}
 
     env:
       test:
