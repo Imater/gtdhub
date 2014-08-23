@@ -1,10 +1,12 @@
 package router
 
 import (
+	"../../app/models"
 	"../../app/controllers"
 	"github.com/go-martini/martini"
 	"net/http"
 	"path"
+	"github.com/martini-contrib/binding"
 )
 
 func Router() martini.Handler {
@@ -21,10 +23,11 @@ func Router() martini.Handler {
 	})
 
 	var articleController *controllers.ArticleController = new(controllers.ArticleController)
-
 	r.Get("/api/articles", articleController.GetArticles)
 
-	r.Get("/api/articles/init", articleController.InitArticles)
+	var thingController *controllers.ThingController = new(controllers.ThingController)
+	r.Get("/api/things", thingController.GetThings)
+	r.Post("/api/things", binding.Bind(models.Thing{}), thingController.AddThings)
 
 	return r.Handle
 }

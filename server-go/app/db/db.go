@@ -4,6 +4,7 @@ import (
 	"github.com/go-martini/martini"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
+	"../models"
 )
 
 func DB() martini.Handler {
@@ -12,6 +13,7 @@ func DB() martini.Handler {
 		if err != nil {
 			panic(err)
 		}
+		db.AutoMigrate(models.Article{}, models.Thing{})
 		c.Map(db)
 		defer db.Close()
 		c.Next()
