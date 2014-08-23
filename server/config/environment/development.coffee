@@ -8,4 +8,4 @@ module.exports =
   mongo:
     uri: "mongodb://localhost/gtdhub-dev"
 
-  seedDB: true
+  seedDB: false

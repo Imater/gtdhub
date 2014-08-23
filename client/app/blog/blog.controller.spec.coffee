@@ -54,3 +54,6 @@ describe 'Controller: BlogCtrl', ->
     timeout.flush()
     expect(article.edit).toBe false
     expect(article.editShow).toBe false
+
+  it '$scope.filterBlogTreeMenu exists', ()->
+    expect(scope.filterBlogTreeMenu.title).toBeDefined()

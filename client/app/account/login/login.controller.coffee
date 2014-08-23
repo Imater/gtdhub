@@ -3,6 +3,8 @@
 angular.module 'gtdhubApp'
 .controller 'LoginCtrl', ($scope, Auth, $location, $window) ->
   $scope.user = {}
+  $scope.user.email = "admin@admin.com"
+  $scope.user.password = "admin"
   $scope.errors = {}
   $scope.login = (form) ->
     $scope.submitted = true

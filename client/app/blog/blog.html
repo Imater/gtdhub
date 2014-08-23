@@ -3,6 +3,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-9">
+                <div class="pull-right add-button-wrap"
+                     ng-include="'app/blog/add-buttons.html'"></div>
                 <div class="article-wrap" ng-repeat="article in articles track by $index">
                     <h2 ng-bind="article.title"></h2>
                     <div class="admin-toolbar" ng-show="isAdmin()">

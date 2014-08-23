@@ -22,7 +22,7 @@ handleError = (res, err) ->
 _ = require("lodash")
 article = require("./article.model")
 exports.index = (req, res) ->
-  article.find (err, articles) ->
+  article.find().sort('-date').exec (err, articles) ->
     return handleError(res, err)  if err
     res.json 200, articles
 
@@ -49,8 +49,6 @@ exports.update = (req, res) ->
     updated.save (err) ->
       return handleError(res, err)  if err
       res.json 200, article
-
-
 
 exports.destroy = (req, res) ->
   article.findById req.params.id, (err, article) ->

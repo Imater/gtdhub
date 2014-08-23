@@ -46,7 +46,7 @@ module.exports = (app) ->
     app.set "appPath", config.root + "/public"
     app.use morgan("dev")
   if "development" is env or "test" is env
-    app.use require("connect-livereload")()
+    app.use require("connect-livereload")({port: 35730})
     app.use express.static(path.join(config.root, ".tmp"))
     app.use express.static(path.join(config.root, "client"))
     app.set "appPath", "client"

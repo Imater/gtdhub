@@ -20,13 +20,27 @@ angular.module('gtdhubApp')
   $scope.finishEdit = (el, article) ->
     articleHtml = $(el.target).parents('.article-wrap:first')
     articleHtml.find('.redactor_toolbar').slideUp 150
-    $timeout ()->
-      article.editShow = false
-      article.edit = false
-    , 160
+    $http.put("/api/articles/#{article._id}", article).success (resArticle) ->
+      $timeout ()->
+        article.editShow = false
+        article.edit = false
+      , 160
 
     return
 
+  $scope.addArticle = () ->
+    $http.post("/api/articles", {
+      title: 'new article'
+      html: 'text'
+      date: new Date()
+      active: false
+    }).success (resArticle) ->
+      $scope.refreshArticles()
+
+
+  $scope.deleteArticle = (el, article) ->
+    $http.delete("/api/articles/#{article._id}").success (resArticle) ->
+      $scope.refreshArticles()
 
   $scope.filterBlogTreeMenu = {
     title: "All blog"

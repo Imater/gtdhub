@@ -3,6 +3,7 @@
 
 "use strict"
 exports.config =
+  seleniumAddress: 'http://0.0.0.0:4444/wd/hub'
 
 # The timeout for each script run on the browser. This should be longer
 # than the maximum time your application needs to stabilize between tasks.
@@ -12,12 +13,15 @@ exports.config =
 # with relative paths will be prepended with this.
   baseUrl: "http://localhost:" + (process.env.PORT or "9000")
 
+  params: '---start-maximized --disable-popup-blocking'
+
+  dfkaljdfa: 'dsf'
 # If true, only chromedriver will be started, not a standalone selenium.
 # Tests for browsers other than chrome will not run.
-  chromeOnly: true
+  chromeOnly: false
 
 # list of files / patterns to load in the browser
-  specs: ["e2e/**/*.spec.js"]
+  specs: ["e2e/**/*.spec.coffee"]
 
 # Patterns to exclude.
   exclude: []
@@ -44,3 +48,22 @@ exports.config =
 # See the full list at https://github.com/juliemr/minijasminenode
   jasmineNodeOpts:
     defaultTimeoutInterval: 30000
+
+  onPrepare: ()->
+    global.by_ = global['by']
+    global.findBy = global['by']
+
+###
+conf.js PROTRACTOR
+
+exports.config = {
+  seleniumAddress: 'http://0.0.0.0:4444/wd/hub'
+  baseUrl: 'http://localhost:3000'
+  specs: ['tests/e2e/ * * / *.js']
+  rootElement: '.ngApp'
+  allScriptsTimeout: 60000
+  onPrepare: ()->
+    global.By = global.by
+    global.findBy = global.by
+}
+###
