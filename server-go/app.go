@@ -1,22 +1,32 @@
 package main
 
 import (
-	"./app/controllers"
 	"./app/db"
+	"./app/router"
 	"github.com/go-martini/martini"
+	"github.com/googollee/go-socket.io"
+	"log"
+	"net/http"
 )
 
 func main() {
-	m := martini.Classic()
-	m.Use(martini.Static("../client/"))
-	m.Use(martini.Static("../.tmp/"))
-	m.Use(db.DB())
 
-	var accountsController *controllers.AccountsController = new(controllers.AccountsController)
+	server, err := socketio.NewServer(nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	server.On("connection", func(so socketio.Socket) {
+		log.Println("on connection")
+	})
 
-	m.Group("/accounts", func(r martini.Router) {
-			r.Get("", accountsController.GetAccounts)
-		})
+	http.Handle("/socket.io/", server)
 
-	m.Run()
+	if true {
+		m := martini.Classic()
+		m.Use(martini.Static("../client/"))
+		m.Use(martini.Static("../.tmp/"))
+		m.Use(db.DB())
+		m.Action(router.Router())
+		m.Run()
+	}
 }
