@@ -10,6 +10,12 @@ angular.module('gtdhubApp').controller 'NavbarCtrl', ($scope, $location, Auth) -
   ,
     title: 'Blog'
     link: '/blog'
+  ,
+    title: 'Slides'
+    link: '/shelf'
+  ,
+    title: 'Split'
+    link: '/split'
   ]
   $scope.Auth = {}
   $scope.isAdmin = Auth.isAdmin

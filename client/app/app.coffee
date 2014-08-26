@@ -10,7 +10,7 @@ angular.module('gtdhubApp', [
   'angular-redactor'
 ]).config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider
-  .otherwise '/cards/tree'
+  .otherwise '/cards/tree/'
 
   $locationProvider.html5Mode true
   $httpProvider.interceptors.push 'authInterceptor'
