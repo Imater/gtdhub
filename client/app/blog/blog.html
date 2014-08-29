@@ -1,5 +1,5 @@
 <div class="blog-main-wrap">
-    <div ng-include="'components/navbar/navbar.html'"></div>
+    <div ng-if="false" ng-include="'components/navbar/navbar.html'"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-9">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3 blog-filter-side-menu">
+            <div class="col-sm-3 blog-filter-side-menu" ng-if="false">
                 <ul class="nav blog-filter-ul" ng-if="tree = filterBlogTreeMenu">
                     <div ng-include="'/blog-filter-line.html'" class="first-level"></div>
                 </ul>

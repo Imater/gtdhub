@@ -1,0 +1,35 @@
+.header-tabs {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  .ul {
+    padding: 0;
+    width: 100%;
+    white-space: nowrap;
+    font-size: 0;
+    border-bottom: 1px solid #EEE;
+    .li {
+      font-size: 12px;
+      display: inline-block;
+      padding: 3px 10px;
+      border: 1px solid #EEE;
+      border-left: none;
+      background: #EEE;
+      max-width: 30%;
+      &.active {
+        background: #FFF;
+        border-bottom: none;
+      }
+      .title {
+        max-width: 100px;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .drop-btn {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+  }
+}

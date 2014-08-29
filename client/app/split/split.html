@@ -4,15 +4,27 @@
 <div class="layout-wrap">
     <div class="layout-table">
         <div class="layout-row">
-            <div class="layout-col ww1" style="width:10%;">Левая колонка</div>
+            <div class="layout-col ww1" style="width:20%;">
+                <div ng-include="'/app/split/header-tabs.html'"></div>
+                <div ng-controller="TreeCtrl" ng-include="'/app/cards/tree/tree.html'"></div>
+            </div>
             <div class="resize-handle"></div>
-            <div class="layout-col ww2" style="width:20%;">Правая колонка.</div>
+            <div class="layout-col ww3" style="">
+                <div class="layout-inside-row hh1" style="height: 80%">
+                    <div ng-include="'/app/split/header-tabs.html'"></div>
+                    <div ng-controller="BlogCtrl" ng-include="'/app/blog/blog.html'"></div>
+                </div>
+                <div class="resize-handle-h"></div>
+                <div class="layout-inside-row hh2" style="height: 20%">
+                    <div ng-include="'/app/split/header-tabs.html'"></div>
+                    2
+                </div>
+            </div>
             <div class="resize-handle"></div>
-            <div class="layout-col ww3" style="">3</div>
-            <div class="resize-handle"></div>
-            <div class="layout-col ww4" style="width:20%;">4</div>
-            <div class="resize-handle"></div>
-            <div class="layout-col ww5" style="width:10%;">5</div>
+            <div class="layout-col ww5" style="width:20%;">
+                <div ng-include="'/app/split/header-tabs.html'"></div>
+                5
+            </div>
         </div>
     </div>
 </div>
