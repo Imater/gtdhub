@@ -1,0 +1,26 @@
+<div class="shelf-main-wrap">
+    <div ng-include="'components/navbar/navbar.html'"></div>
+    <div class="container-fluid">
+        <div class="shelf-scroll-wrap">
+            <div class="shelf-wrap">
+                <div ng-if="shelf = shelfs">
+                    <div ng-include="'/shelf-line.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="/shelf-line.html">
+    <div class="shelf-wrap">
+        <div class="shelf-one">
+            <span class="title">{{shelf.title}}</span>
+        </div>
+        <ul class="shelf-ul" ng-if="shelf.childs">
+            <li class="shelf-li" ng-repeat="shelf in shelf.childs">
+                <div ng-include="'/shelf-line.html'"></div>
+            </li>
+        </ul>
+    </div>
+</script>
+        

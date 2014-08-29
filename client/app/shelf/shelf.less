@@ -1,0 +1,41 @@
+.shelf-main-wrap {
+  background: #AAA;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .shelf-scroll-wrap {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    white-space: nowrap;
+    .shelf-wrap {
+      margin: 10px;
+      vertical-align: middle;
+      .shelf-ul {
+        display: inline-block;
+        white-space: normal;
+        vertical-align: middle;
+        list-style: none;
+        padding: 0;
+        margin: 10px;
+        .shelf-li {
+          display: block;
+          white-space: normal;
+        }
+      }
+      .shelf-one {
+        display: inline-block;
+        background: #FFF;
+        box-shadow: 1px 1px 3px #000;
+        padding: 15px;
+        min-width: 150px;
+        max-width: 300px;
+      }
+    }
+  }
+}
