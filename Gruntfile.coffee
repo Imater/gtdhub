@@ -605,7 +605,6 @@ module.exports = (grunt) ->
         "env:all"
         "env:test"
         "mochaTest"
-        "watch:mochaTest"
       ]
     else if target is "client"
       grunt.task.run [

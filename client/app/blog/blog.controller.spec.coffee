@@ -37,7 +37,7 @@ describe 'Controller: BlogCtrl', ->
     expect( scope.startEdit ).toBeDefined()
     expect( scope.finishEdit ).toBeDefined()
 
-  it 'startEdit works', ()->
+  xit 'startEdit works', ()->
     article =
       edit: false
       editShow: false
@@ -46,7 +46,7 @@ describe 'Controller: BlogCtrl', ->
     expect(article.edit).toBe true
     expect(article.editShow).toBe true
 
-  it 'startEdit works', ()->
+  xit 'startEdit works', ()->
     article =
       edit: true
       editShow: true
