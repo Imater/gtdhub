@@ -22,9 +22,9 @@ module.exports = (config) ->
         sourceMap: true
       }
 
-    coverageReporter:
+    coverageReporter2:
       instrumenter:
-        'client/app/blog/**/*.coffee': ['ibrik']
+        #'client/app/blog/**/*.coffee': ['ibrik']
         #'client/app/**/*.coffee': ['istanbul']
       type: "html"
       dir: "coverage/"
@@ -33,7 +33,7 @@ module.exports = (config) ->
       #'junit'
       #'dots'
       'progress'
-      'coverage'
+      #'coverage'
     ]
 
   # testing framework to use (jasmine/mocha/qunit/...)
