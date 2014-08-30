@@ -12,7 +12,7 @@ module.exports = (config) ->
     ]
 
     preprocessors:
-      "**/*.spec.coffee": ["coffee"]
+      "**/*.coffee": ["coffee"]
 
     coffeePreprocessor:
       options: {
