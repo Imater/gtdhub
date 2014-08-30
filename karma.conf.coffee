@@ -13,9 +13,6 @@ module.exports = (config) ->
       'karma-coffee-preprocessor'
     ]
 
-    preprocessors:
-      "client/**/*.spec.coffee": ["coffee"]
-
     coffeePreprocessor:
       options: {
         sourceMap: true
