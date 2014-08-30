@@ -9,9 +9,10 @@ module.exports = (config) ->
     plugins3: [
       'karma-phantomjs-launcher',
       'karma-jasmine'
-      'karma-coverage'
-      'karma-coffee-preprocessor'
     ]
+
+    preprocessors:
+      "**/*.spec.coffee": ["coffee"]
 
     coffeePreprocessor:
       options: {
