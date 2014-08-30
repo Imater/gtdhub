@@ -14,7 +14,6 @@ module.exports = (config) ->
     ]
 
     preprocessors:
-      #"client/**/!(*spec).coffee": ["coverage"]
       "client/**/*.spec.coffee": ["coffee"]
 
     coffeePreprocessor:
@@ -22,18 +21,8 @@ module.exports = (config) ->
         sourceMap: true
       }
 
-    coverageReporter2:
-      instrumenter:
-        #'client/app/blog/**/*.coffee': ['ibrik']
-        #'client/app/**/*.coffee': ['istanbul']
-      type: "html"
-      dir: "coverage/"
-
     reporters: [
-      #'junit'
-      #'dots'
       'progress'
-      #'coverage'
     ]
 
   # testing framework to use (jasmine/mocha/qunit/...)
