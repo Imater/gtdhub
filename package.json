@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    "coffee-script": "^1.7.1",
     "grunt": "~0.4.4",
     "grunt-cli": "*",
     "body-parser": "~1.0.0",
