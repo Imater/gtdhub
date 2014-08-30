@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    "grunt": "~0.4.4",
+    "grunt-cli": "*",
     "body-parser": "~1.0.0",
     "composable-middleware": "^0.3.0",
     "compression": "~1.0.1",
