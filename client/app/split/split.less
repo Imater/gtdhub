@@ -1,0 +1,49 @@
+.layout-wrap {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.layout-table {
+  display: table;
+  height: 100%;
+  width: 100%;
+  .header-wrap {
+    width: 100%;
+    height: 50px;
+  }
+  .layout-row {
+    display: table-row;
+    vertical-align: top;
+    width: 100%;
+    .layout-col {
+      display: table-cell;
+      overflow: auto;
+      vertical-align: top;
+      .layout-inside-row {
+        margin-bottom: -5px;
+        overflow: auto;
+        vertical-align: top;
+      }
+      .resize-handle-h {
+        overflow: hidden;
+        cursor: row-resize;
+        background: #EEE;
+        border-top: 1px solid #DDD;
+        border-bottom: 1px solid #DDD;
+        height: 5px;
+      }
+
+    }
+    .resize-handle {
+      display: table-cell;
+      content: "";
+      cursor: col-resize;
+      width: 3px;
+      border-left: 1px solid #DDD;
+      border-right: 1px solid #DDD;
+      background: #EEE;
+    }
+  }
+}

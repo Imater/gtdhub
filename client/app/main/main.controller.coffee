@@ -1,7 +1,6 @@
 'use strict'
 
-angular.module 'gtdhubApp'
-.controller 'MainCtrl', ($scope, $http, socket) ->
+angular.module('gtdhubApp').controller 'MainCtrl', ($scope, $http, socket) ->
   $scope.awesomeThings = []
 
   $http.get('/api/things').success (awesomeThings) ->

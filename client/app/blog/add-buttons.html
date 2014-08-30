@@ -1,0 +1,29 @@
+<div class="btn-group dropdown text-left">
+    <button type="button"
+            ng-if="!article.edit"
+            ng-click="addArticle($event, article)"
+            class="btn btn-success btn-xs">
+        <i class="fa fa-plus"></i>
+        Add article
+    </button>
+    <button type="button"
+            ng-if="article.edit"
+            ng-click="finishEdit($event, article)"
+            class="btn btn-success btn-xs">
+        <i class="fa fa-save"></i>
+        Save
+    </button>
+    <button type="button"
+            class="btn btn-success btn-xs dropdown-toggle"
+            data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a ng-click="deleteArticle($event, article)">Delete</a></li>
+        <li><a href="#">Stop publish</a></li>
+        <li><a href="#">Move to top</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+    </ul>
+</div>

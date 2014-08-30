@@ -1,7 +1,6 @@
 'use strict'
 
-angular.module 'gtdhubApp'
-.factory 'User', ($resource) ->
+angular.module('gtdhubApp').factory 'User', ($resource) ->
   $resource '/api/users/:id/:controller',
     id: '@_id'
   ,

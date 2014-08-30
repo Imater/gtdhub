@@ -1,4 +1,3 @@
-'use strict'
 
 angular.module 'gtdhubApp'
 .factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->

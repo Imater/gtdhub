@@ -3,8 +3,7 @@
 ###
 Removes server error when user updates input
 ###
-angular.module 'gtdhubApp'
-.directive 'mongooseError', ->
+angular.module('gtdhubApp').directive 'mongooseError', ->
   restrict: 'A'
   require: 'ngModel'
   link: (scope, element, attrs, ngModel) ->

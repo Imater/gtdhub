@@ -5,7 +5,7 @@
 #
 # This file should not be tracked by git.
 module.exports =
-  SESSION_SECRET: "trello-secret"
+  SESSION_SECRET: "gtdhub-secret"
   FACEBOOK_ID: "app-id"
   FACEBOOK_SECRET: "secret"
   TWITTER_ID: "app-id"

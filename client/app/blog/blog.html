@@ -1,17 +1,36 @@
 <div class="blog-main-wrap">
-    <div ng-include="'components/navbar/navbar.html'"></div>
-    <div class="row">
-        <div class="col-sm-9">
-            <div class="article-wrap">
-                <h2 ng-bind="article.title"></h2>
-                <div class="article-html" ng-bind-html="article.html">
+    <div ng-if="false" ng-include="'components/navbar/navbar.html'"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="pull-right add-button-wrap"
+                     ng-include="'app/blog/add-buttons.html'"></div>
+                <div class="article-wrap" ng-repeat="article in articles track by $index">
+                    <h2 ng-bind="article.title"></h2>
+                    <div class="admin-toolbar" ng-show="isAdmin()">
+                        <div ng-include="'app/blog/admin.buttons.html'"></div>
+                    </div>
+                    <div ng-if="article.edit"
+                         ng-show="article.editShow"
+                         style="min-height: 300px">
+                        <div redactor
+                             class="redactor"
+                             ng-model="article.html">
+                        </div>
+                    </div>
+
+                    <div class="article-html"
+                         ng-if="!article.edit || !article.editShow"
+                         ng-show="!article.editShow"
+                         ng-bind-html="article.html">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3 blog-filter-side-menu">
-            <ul class="nav blog-filter-ul" ng-if="tree = filterBlogTreeMenu">
-                <div ng-include="'/blog-filter-line.html'" class="first-level"></div>
-            </ul>
+            <div class="col-sm-3 blog-filter-side-menu" ng-if="false">
+                <ul class="nav blog-filter-ul" ng-if="tree = filterBlogTreeMenu">
+                    <div ng-include="'/blog-filter-line.html'" class="first-level"></div>
+                </ul>
+            </div>
         </div>
     </div>
 

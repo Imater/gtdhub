@@ -1,16 +1,16 @@
 'use strict'
 
-angular.module 'gtdhubApp', [
+angular.module('gtdhubApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap'
-]
-.config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
+  'angular-redactor'
+]).config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider
-  .otherwise '/cards/tree'
+  .otherwise '/cards/tree/'
 
   $locationProvider.html5Mode true
   $httpProvider.interceptors.push 'authInterceptor'
