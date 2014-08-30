@@ -7,7 +7,6 @@ angular.module 'gtdhubApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap'
-  'contenteditable'
 ]
 .config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider

@@ -593,7 +593,7 @@ module.exports = (grunt) ->
         "concurrent:test"
         "injector"
         "autoprefixer"
-        "karma"
+        "karma:unit"
       ]
     else if target is "e2e"
       grunt.task.run [
