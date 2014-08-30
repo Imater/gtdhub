@@ -3,6 +3,8 @@ express = require("express")
 mongoose = require("mongoose")
 config = require("./config/environment")
 
+console.info "ENV = ", process.env.NODE_ENV
+
 # Connect to database
 mongoose.connect config.mongo.uri, config.mongo.options
 
