@@ -14,7 +14,7 @@ module.exports = (config) ->
     ]
 
     preprocessors:
-      "client/**/!(*spec).coffee": ["coverage"]
+      #"client/**/!(*spec).coffee": ["coverage"]
       "client/**/*.spec.coffee": ["coffee"]
 
     coffeePreprocessor:
