@@ -13,3 +13,9 @@ module.exports =
 # MongoDB connection options
   mongo:
     uri: process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME or "mongodb://localhost/trello"
+
+  db:
+    name: "gtdhub"
+    username: "postgres"
+    password: "990990"
+    port: 5433
