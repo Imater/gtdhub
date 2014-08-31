@@ -23,10 +23,10 @@ handleError = (res, err) ->
 _ = require("lodash")
 db = require '../../models'
 cache_manager = require('cache-manager')
-memory_cache = cache_manager.caching({store: 'memory', max: 10000, ttl: 1})
+memory_cache = cache_manager.caching({store: 'memory', max: 100, ttl: 10})
 
 exports.index = (req, res) ->
-  key = Math.round Math.random()*10
+  key = 'articles'
   memory_cache.wrap key, (cacheCb) ->
     db.article.findAll().complete (err, result) ->
       console.info 'not_from_cache'
@@ -35,10 +35,51 @@ exports.index = (req, res) ->
     res.json 200, result
 
 exports.create = (req, res) ->
-  db.article.create
-    title: "first article"
-    date: new Date()
-    active: true
-    html: "<h1>Hello!!!</h1>"
-  .complete (err, result) ->
-    res.send true
+  db.article.create(req.body)
+  .complete (err, article) ->
+    key = 'article_'+article.id
+    memory_cache.wrap key, (cacheCb) ->
+      cacheCb(err, article)
+    , (err, article) ->
+      res.json 201, article
+
+exports.show = (req, res) ->
+  key = 'article_'+req.params.id
+  memory_cache.wrap key, (cacheCb) ->
+    console.info 'not_from_cache = ', key, memory_cache.keys()
+    db.article.find
+      where:
+        id: req.params.id
+    .complete (err, article) ->
+      cacheCb err, article
+  , (err, article) ->
+    return handleError(res, err)  if err
+    return res.send(404)  unless article
+    res.json 200, article
+
+exports.update = (req, res) ->
+  db.article.find
+    where:
+      id: req.params.id
+  .complete (err, article) ->
+    return handleError(res, err)  if err
+    return res.send(404)  unless article
+    updated = _.merge(article, req.body)
+    updated.save().complete (err, article) ->
+      key = 'article_'+req.params.id
+      memory_cache.del(key)
+      return handleError(res, err)  if err
+      res.json 200, article
+
+exports.destroy = (req, res) ->
+  db.article.find
+    where:
+      id: req.params.id
+  .complete (err, article) ->
+    return handleError(res, err)  if err
+    return res.send(404)  unless article
+    article.destroy().complete (err) ->
+      key = 'article_'+req.params.id
+      memory_cache.del(key)
+      return handleError(res, err)  if err
+      res.send 204

@@ -9,7 +9,7 @@ module.exports =
     uri: "mongodb://localhost/gtdhub-test"
   seedDB: true
   db:
-    name: "gtdhub"
+    name: "gtdhub-test"
     username: "postgres"
     password: "990990"
     port: 5433

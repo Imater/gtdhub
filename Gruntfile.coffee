@@ -28,7 +28,7 @@ module.exports = (grunt) ->
       dev:
         options:
           script: "server/app.coffee"
-          debug: true
+          debug: false
 
       devNoDebug:
         options:
@@ -62,9 +62,13 @@ module.exports = (grunt) ->
       mochaTest:
         files: ["server/**/*.coffee", "server/**/*.spec.coffee"]
         tasks: [
-          "env:test"
           "mochaTest"
         ]
+        options: {
+          spawn: true
+          #interrupt: true
+          #debounceDelay: 2250
+        }
 
       jsTest:
         files: [
@@ -124,7 +128,7 @@ module.exports = (grunt) ->
         ]
         options:
           livereload: 35730
-          nospawn: true
+          #nospawn: true
           #Without this option specified express won't be reloaded
 
       protractor:
@@ -427,11 +431,13 @@ module.exports = (grunt) ->
         configFile: "karma.conf.coffee"
         singleRun: false
         autoWatch: true
+
     mochaTest:
       options:
         reporter: "spec"
+        clearRequireCache: true
 
-      src: ["server/**/*.spec.js", "server/**/*.spec.coffee"]
+      src: ["server/**/*.spec.coffee"]
 
     protractor:
       options:
@@ -602,7 +608,6 @@ module.exports = (grunt) ->
   grunt.registerTask "test", (target) ->
     if target is "server"
       grunt.task.run [
-        "env:all"
         "env:test"
         "mochaTest"
       ]
@@ -666,5 +671,9 @@ module.exports = (grunt) ->
   ]
   grunt.registerTask "clean-dev", [
     "clean:dev"
+  ]
+  grunt.registerTask "test-tdd", [
+    "env:test"
+    "watch:mochaTest"
   ]
   return

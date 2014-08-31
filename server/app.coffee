@@ -26,6 +26,7 @@ db.sequelize.sync().complete (err) ->
     throw err
   else
     # Start server
+    console.info 'start-listen'
     server.listen config.port, config.ip, ->
       console.log "Express server listening on %d, in %s mode", config.port, app.get("env")
 

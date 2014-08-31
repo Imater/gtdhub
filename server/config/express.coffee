@@ -29,23 +29,25 @@ module.exports = (app) ->
 
   # Persist sessions with mongoStore
   # We need to enable sessions for passport twitter because its an oauth 1.0 strategy
-  app.use session(
-    secret: config.secrets.session
-    resave: true
-    saveUninitialized: true
-    store: new mongoStore(
-      url: config.mongo.uri
-      collection: "sessions"
-    , ->
-      console.log "db connection open"
+  if false
+    app.use session(
+      secret: config.secrets.session
+      resave: true
+      saveUninitialized: true
+      store: new mongoStore(
+        url: config.mongo.uri
+        collection: "sessions"
+      , ->
+        console.log "db connection open"
+      )
     )
-  )
   if "production" is env
     app.use favicon(path.join(config.root, "public", "favicon.ico"))
     app.use express.static(path.join(config.root, "public"))
     app.set "appPath", config.root + "/public"
     app.use morgan("dev")
   if "development" is env or "test" is env
+    console.info 'express-started'
     app.use require("connect-livereload")({port: 35730})
     app.use express.static(path.join(config.root, ".tmp"))
     app.use express.static(path.join(config.root, "client"))

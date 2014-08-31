@@ -8,7 +8,7 @@ user = new User(
   email: "test@test.com"
   password: "password"
 )
-describe "User Model", ->
+xdescribe "User Model", ->
   before (done) ->
 
     # Clear users before testing
