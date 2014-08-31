@@ -18,4 +18,4 @@ module.exports =
     name: "gtdhub"
     username: "postgres"
     password: "990990"
-    port: 5433
+    port: 5432
