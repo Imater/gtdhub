@@ -35,7 +35,13 @@ exports.show = (req, res) ->
 
 
 exports.create = (req, res) ->
-  article.create req.body, (err, article) ->
+  #req.body
+  article.create
+    title: "first article"
+    date: new Date()
+    active: true
+    html: "<h1>Hello!!!</h1>"
+  , (err, article) ->
     return handleError(res, err)  if err
     res.json 201, article
 

@@ -2,6 +2,8 @@ process.env.NODE_ENV = process.env.NODE_ENV or "development"
 express = require("express")
 mongoose = require("mongoose")
 config = require("./config/environment")
+Sequelize = require 'sequelize'
+db = require './models'
 
 # Connect to database
 mongoose.connect config.mongo.uri, config.mongo.options
@@ -17,9 +19,15 @@ require("./config/socketio") socketio
 require("./config/express") app
 require("./routes") app
 
-# Start server
-server.listen config.port, config.ip, ->
-  console.log "Express server listening on %d, in %s mode", config.port, app.get("env")
+
+db.sequelize.sync().complete (err) ->
+  if err
+    console.info "sync error"
+    throw err
+  else
+    # Start server
+    server.listen config.port, config.ip, ->
+      console.log "Express server listening on %d, in %s mode", config.port, app.get("env")
 
 
 # Expose app
