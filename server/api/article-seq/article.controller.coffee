@@ -22,9 +22,16 @@ handleError = (res, err) ->
 
 _ = require("lodash")
 db = require '../../models'
+cache_manager = require('cache-manager')
+memory_cache = cache_manager.caching({store: 'memory', max: 10000, ttl: 1})
 
 exports.index = (req, res) ->
-  db.article.findAll().complete (err, result) ->
+  key = Math.round Math.random()*10
+  memory_cache.wrap key, (cacheCb) ->
+    db.article.findAll().complete (err, result) ->
+      console.info 'not_from_cache'
+      cacheCb(err, result)
+  , (err, result) ->
     res.json 200, result
 
 exports.create = (req, res) ->
