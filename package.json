@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    "amqplib": "^0.2.1",
     "body-parser": "~1.0.0",
     "cache-manager": "^0.9.0",
     "coffee-script": "^1.7.1",
@@ -23,6 +24,7 @@
     "method-override": "~1.0.0",
     "mongoose": "~3.8.8",
     "morgan": "~1.0.0",
+    "pageres": "^0.4.1",
     "passport": "~0.2.0",
     "passport-facebook": "latest",
     "passport-google-oauth": "latest",
@@ -33,7 +35,9 @@
     "sequelize": "^2.0.0-dev13",
     "socket.io": "~1.0.6",
     "socketio-jwt": "^2.0.2",
-    "static-favicon": "~1.0.1"
+    "static-favicon": "~1.0.1",
+    "webshot": "^0.15.3",
+    "when": "^3.4.4"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",

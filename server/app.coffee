@@ -3,10 +3,18 @@ express = require("express")
 mongoose = require("mongoose")
 config = require("./config/environment")
 Sequelize = require 'sequelize'
-db = require './models'
 
 # Connect to database
 mongoose.connect config.mongo.uri, config.mongo.options
+
+Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.db.password,
+  dialect: 'postgres'
+  port: config.db.port or 5433
+  logging: false
+  pool:
+    maxConnections: 50
+  maxConcurrentQueries: 100
+)
 
 # Populate DB with sample data
 require "./config/seed"  if config.seedDB
@@ -20,7 +28,7 @@ require("./config/express") app
 require("./routes") app
 
 
-db.sequelize.sync().complete (err) ->
+Sequelize.sequelize.sync().complete (err) ->
   if err
     console.info "sync error"
     throw err

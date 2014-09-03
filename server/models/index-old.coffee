@@ -5,7 +5,6 @@ lodash = require 'lodash'
 config = require("../config/environment")
 
 excludeFiles = ['index.coffee']
-console.info 'connect..................................'
 sequelize = new Sequelize(config.db.name, config.db.username, config.db.password,
   dialect: 'postgres'
   port: config.db.port or 5433

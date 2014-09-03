@@ -1,3 +1,4 @@
+"use strict"
 ###
 Using Rails-like standard naming convention for endpoints.
 GET     /articles              ->  index
@@ -18,50 +19,67 @@ DELETE  /articles/:id          ->  destroy
 # Deletes a article from the DB.
 handleError = (res, err) ->
   res.send 500, err
-"use strict"
+
 _ = require("lodash")
-article = require("./article.model")
+db = require './article.model'
+cache_manager = require('cache-manager')
+memory_cache = cache_manager.caching({store: 'memory', max: 100, ttl: 10})
+
 exports.index = (req, res) ->
-  article.find().sort('-date').exec (err, articles) ->
-    return handleError(res, err)  if err
-    res.json 200, articles
-
-
-exports.show = (req, res) ->
-  article.findById req.params.id, (err, article) ->
-    return handleError(res, err)  if err
-    return res.send(404)  unless article
-    res.json article
-
+  key = 'articles'
+  memory_cache.wrap key, (cacheCb) ->
+    db.article.findAll().complete (err, result) ->
+      console.info 'not_from_cache'
+      cacheCb(err, result)
+  , (err, result) ->
+    res.json 200, result
 
 exports.create = (req, res) ->
-  #req.body
-  article.create
-    title: "first article"
-    date: new Date()
-    active: true
-    html: "<h1>Hello!!!</h1>"
+  db.article.create(req.body)
+  .complete (err, article) ->
+    key = 'article_'+article.id
+    memory_cache.wrap key, (cacheCb) ->
+      cacheCb(err, article)
+    , (err, article) ->
+      res.json 201, article
+
+exports.show = (req, res) ->
+  key = 'article_'+req.params.id
+  memory_cache.wrap key, (cacheCb) ->
+    console.info 'not_from_cache = ', key, memory_cache.keys()
+    db.article.find
+      where:
+        id: req.params.id
+    .complete (err, article) ->
+      cacheCb err, article
   , (err, article) ->
     return handleError(res, err)  if err
-    res.json 201, article
-
+    return res.send(404)  unless article
+    res.json 200, article
 
 exports.update = (req, res) ->
-  delete req.body._id  if req.body._id
-  article.findById req.params.id, (err, article) ->
+  db.article.find
+    where:
+      id: req.params.id
+  .complete (err, article) ->
     return handleError(res, err)  if err
     return res.send(404)  unless article
     updated = _.merge(article, req.body)
-    updated.save (err) ->
+    updated.save().complete (err, article) ->
+      key = 'article_'+req.params.id
+      memory_cache.del(key)
       return handleError(res, err)  if err
       res.json 200, article
 
 exports.destroy = (req, res) ->
-  article.findById req.params.id, (err, article) ->
+  db.article.find
+    where:
+      id: req.params.id
+  .complete (err, article) ->
     return handleError(res, err)  if err
     return res.send(404)  unless article
-    article.remove (err) ->
+    article.destroy().complete (err) ->
+      key = 'article_'+req.params.id
+      memory_cache.del(key)
       return handleError(res, err)  if err
       res.send 204
-
-
