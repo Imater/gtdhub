@@ -20,7 +20,7 @@ amqp.connect("amqp://localhost").then (conn) ->
     reply = (msg) ->
       controller.index msg.content.toString(),
         json: (status, res)->
-          #console.info 'yes sir! ;-)       ' + new Date().getTime()
+          console.info 'yes sir! ;-)       ' + new Date().getTime()
           ch.sendToQueue msg.properties.replyTo, new Buffer(JSON.stringify({status, res})),
             correlationId: msg.correlationId
             ch.ack msg
