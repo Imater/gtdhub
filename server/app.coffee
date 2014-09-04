@@ -3,6 +3,7 @@ express = require("express")
 mongoose = require("mongoose")
 config = require("./config/environment")
 Sequelize = require 'sequelize'
+amqp = require "amqplib"
 
 # Connect to database
 mongoose.connect config.mongo.uri, config.mongo.options
@@ -15,6 +16,12 @@ Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.d
     maxConnections: 50
   maxConcurrentQueries: 100
 )
+
+amqp.connect("amqp://localhost").then (_conn) ->
+  amqp.conn = _conn
+
+process.on 'exit', () ->
+  amqp.conn.close()
 
 # Populate DB with sample data
 require "./config/seed"  if config.seedDB

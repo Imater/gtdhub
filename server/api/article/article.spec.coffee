@@ -9,6 +9,7 @@ describe "GET /api/articles", ->
   it "should respond with JSON array", (done) ->
     request.get("/api/articles").expect(200).expect("Content-Type", /json/).end (err, res) ->
       return done(err) if err
+      console.info "!!!!!!!!!!!!!!!!!!", err
       res.body.should.be.instanceof Array
       done()
 
@@ -47,7 +48,6 @@ describe "Article  save", ->
       .expect(200).end (req, res) ->
         res.body.title.should.be.equal 'News title 2'
         done()
-
 
   it "can edit just saved new title", (done) ->
     request.put("/api/articles/"+newId)

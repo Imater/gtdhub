@@ -23,16 +23,20 @@ handleError = (res, err) ->
 _ = require("lodash")
 db = require './article.model'
 cache_manager = require('cache-manager')
-memory_cache = cache_manager.caching({store: 'memory', max: 100, ttl: 10})
+redis_store = require('../../components/redis/redis-store');
+memory_cache = cache_manager.caching({store: redis_store})
 
-exports.index = (req, res) ->
-  key = 'articles'
-  memory_cache.wrap key, (cacheCb) ->
-    db.article.findAll().complete (err, result) ->
-      console.info 'not_from_cache'
-      cacheCb(err, result)
-  , (err, result) ->
-    res.json 200, result
+memory_cache.set('fuck', 'hello')
+
+exports.index =
+  (req, res) ->
+    key = 'articles'
+    memory_cache.wrap key, (cacheCb) ->
+      db.article.findAll().complete (err, result) ->
+        console.info 'not_from_cache'
+        cacheCb(err, result)
+    , (err, result) ->
+      res.json 200, result
 
 exports.create = (req, res) ->
   db.article.create(req.body)
