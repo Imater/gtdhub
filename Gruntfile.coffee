@@ -27,18 +27,18 @@ module.exports = (grunt) ->
 
       dev:
         options:
-          script: "server/app.coffee"
+          script: "server/app/index.coffee"
           debug: false
 
       devNoDebug:
         options:
           port: process.env.PORT or 9000
-          script: "server/app.coffee"
+          script: "server/app/index.coffee"
           debug: false
 
       prod:
         options:
-          script: "dist/server/app.coffee"
+          script: "dist/server/app/index.coffee"
 
     open:
       server:
@@ -210,7 +210,7 @@ module.exports = (grunt) ->
     # Use nodemon to run server in debug mode with an initial breakpoint
     nodemon:
       debug:
-        script: "server/app.coffee"
+        script: "server/app/index.coffee"
         options:
           nodeArgs: ["--debug-brk"]
           env:

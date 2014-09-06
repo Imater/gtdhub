@@ -24,6 +24,7 @@
     "method-override": "~1.0.0",
     "mongoose": "~3.8.8",
     "morgan": "~1.0.0",
+    "mysql": "^2.4.3",
     "node-uuid": "^1.4.1",
     "pageres": "^0.4.1",
     "passport": "~0.2.0",
