@@ -4,6 +4,48 @@ angular.module('gtdhubApp').controller 'SplitCtrl', ($scope) ->
 
   $scope.message = 'Hello'
 
+  row1 =
+    height: 60
+    cols : [
+      {
+        width: 20
+        color: '#EEE'
+      }
+    ,
+      {
+        width: 60
+        color: '#FFF'
+      }
+    ,
+      {
+        width: 20
+        color: '#EEE'
+      }
+  ]
+
+  row2 =
+    height: 20
+    cols: [
+      {
+        width: 40
+        color: '#AAA'
+      }
+    ,
+      {
+        width: 60
+        color: '#ABA'
+      }
+  ]
+
+  $scope.windows =
+    rows: [
+      row1
+    ,
+      row2
+    ,
+      row2
+    ]
+
   $(".resize-handle").on "mousedown", (e)->
     $(".layout-wrap").addClass("not-selectable")
     windowWidth = $(".layout-wrap").width()
