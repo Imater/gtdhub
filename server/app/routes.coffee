@@ -3,6 +3,8 @@ Main application routes
 ###
 "use strict"
 errors = require("./components/errors")
+config = require("./config/environment")
+
 module.exports = (app) ->
 
   # Insert routes below
@@ -16,4 +18,5 @@ module.exports = (app) ->
 
   # All other routes should redirect to the index.html
   app.route("/*").get (req, res) ->
-    res.sendfile app.get("appPath") + "/index.html"
+    console.info app.get("appPath") + "/index.html"
+    res.sendfile config.root + app.get("appPath") + "/index.html"

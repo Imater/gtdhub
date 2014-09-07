@@ -3,7 +3,8 @@
 angular.module('gtdhubApp')
 .controller 'BlogCtrl', ($scope, Auth, $timeout, $http, socket) ->
 
-  $scope.isAdmin = Auth.isAdmin
+  $scope.isAdmin = -> true
+  #Auth.isAdmin
 
   $scope.startEdit = (el, article) ->
     article.edit = true
@@ -20,7 +21,7 @@ angular.module('gtdhubApp')
   $scope.finishEdit = (el, article) ->
     articleHtml = $(el.target).parents('.article-wrap:first')
     articleHtml.find('.redactor_toolbar').slideUp 150
-    $http.put("/api/articles/#{article._id}", article).success (resArticle) ->
+    $http.put("/api/articles/#{article.id}", article).success (resArticle) ->
       $timeout ()->
         article.editShow = false
         article.edit = false
@@ -39,7 +40,7 @@ angular.module('gtdhubApp')
 
 
   $scope.deleteArticle = (el, article) ->
-    $http.delete("/api/articles/#{article._id}").success (resArticle) ->
+    $http.delete("/api/articles/#{article.id}").success (resArticle) ->
       $scope.refreshArticles()
 
   $scope.filterBlogTreeMenu = {

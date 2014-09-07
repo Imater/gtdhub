@@ -1,4 +1,5 @@
 module.exports = (grunt) ->
+  grunt.loadNpmTasks('grunt-bg-shell');
   # Load grunt tasks automatically, when needed
   require("jit-grunt") grunt,
     express: "grunt-express-server"
@@ -20,6 +21,23 @@ module.exports = (grunt) ->
       client: require("./bower.json").appPath or "client"
       dist: "dist"
 
+    shell:
+      starteMQ:
+        options:
+          stderr: true
+        target:
+          command: 'rabbitmq-server -detached'
+
+    bgShell:
+      _defaults:
+        bg: true
+        stdout: true
+        stderr: true
+
+      startServices:
+        cmd: 'coffee server/services/db/index.coffee'
+
+
     express:
       options:
         port: process.env.PORT or 9000
@@ -29,6 +47,13 @@ module.exports = (grunt) ->
         options:
           script: "server/app/index.coffee"
           debug: false
+
+      dbService:
+        options:
+          script: "server/services/db/index.coffee"
+          debug: false
+          background: true
+          port: 9005
 
       devNoDebug:
         options:
@@ -456,7 +481,7 @@ module.exports = (grunt) ->
       prod:
         NODE_ENV: "production"
 
-      all: require("./server/config/local.env")
+      all: require("./server/app/config/local.env")
 
 
     # Compiles CoffeeScript to JavaScript
@@ -586,6 +611,8 @@ module.exports = (grunt) ->
         "concurrent:debug"
       ])
     grunt.task.run [
+      "bgShell:startServices"
+      "wait"
       "clean:server"
       "env:all"
       "injector:less"
@@ -594,8 +621,8 @@ module.exports = (grunt) ->
       "bowerInstall"
       "autoprefixer"
       "express:dev"
-      "wait"
-      "open"
+      #"wait"
+      #"open"
       "watch"
     ]
     return
@@ -608,6 +635,8 @@ module.exports = (grunt) ->
   grunt.registerTask "test", (target) ->
     if target is "server"
       grunt.task.run [
+        "bgShell:startServices"
+        "wait"
         "env:test"
         "mochaTest"
       ]
@@ -623,6 +652,8 @@ module.exports = (grunt) ->
       ]
     else if target is "e2e"
       grunt.task.run [
+        "bgShell:startServices"
+        "wait"
         "clean:server"
         "env:all"
         "env:test"
@@ -636,6 +667,8 @@ module.exports = (grunt) ->
       ]
     else if target is "e2eWatch"
       grunt.task.run [
+        "bgShell:startServices"
+        "wait"
         "protractor"
         "watch:protractor"
       ]
@@ -665,9 +698,9 @@ module.exports = (grunt) ->
     "usemin"
     ]
   grunt.registerTask "default", [
-    "newer:jshint"
-    "test"
-    "build"
+    "serve"
+    #"test"
+    #"build"
   ]
   grunt.registerTask "clean-dev", [
     "clean:dev"
@@ -676,4 +709,8 @@ module.exports = (grunt) ->
     "env:test"
     "watch:mochaTest"
   ]
+  grunt.registerTask('service', [
+    "express:dbService"
+    "express-keepalive"
+  ]);
   return

@@ -13,9 +13,8 @@ Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.d
   maxConcurrentQueries: 100
 )
 
-controller = require("./api/article")
-
 con = hs.connect({host: '127.0.0.1', port: 9999})
+hs.con = con
 con.on 'connect', ()->
   con.openIndex 'gtdhub', 'articles', 'PRIMARY', ['title', 'html'], (err, index) ->
     console.time 'start'
@@ -23,6 +22,7 @@ con.on 'connect', ()->
       console.timeEnd 'start'
       console.info err, records
 
+controller = require("./api/article")
 
 listenQueue = (conn, listenPath, workerFunction) ->
   conn.createChannel().then (ch) ->
@@ -52,5 +52,6 @@ amqp.connect("amqp://localhost").then (conn) ->
   _.each controller, (workerFunction, queuePath) ->
     listenQueue conn, queuePath, workerFunction
   process.once "SIGINT", ->
+    console.info "close"
     conn.close()
 

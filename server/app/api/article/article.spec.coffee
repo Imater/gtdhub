@@ -1,15 +1,14 @@
 "use strict"
-app = require("../../app")
+app = require("../../index")
 request = require("supertest")(app)
 should = require("should")
-Article = require("./article.model.coffee")
+Article = require("./../../../services/db/api/article/article.model.coffee")
 
 
 describe "GET /api/articles", ->
   it "should respond with JSON array", (done) ->
     request.get("/api/articles").expect(200).expect("Content-Type", /json/).end (err, res) ->
       return done(err) if err
-      console.info "!!!!!!!!!!!!!!!!!!", err
       res.body.should.be.instanceof Array
       done()
 
