@@ -9,14 +9,14 @@ angular.module('gtdhubApp').controller 'SplitCtrl', ($scope) ->
     cols : [
       {
         width: 20
-        color: '#333'
+        color: '#C6C5C3'
         include: 'app/cards/tree/tree.html'
         controller: 'TreeCtrl'
       }
     ,
       {
         width: 80
-        color: '#FFF'
+        color: '#cbcac8'
         include: 'app/cards/cards/cards.html'
 
       }

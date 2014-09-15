@@ -14,13 +14,15 @@
               <i class="fa fa-angle-down"></i>
             </div>
             <div class="text">
-              This is all well and good and works as desired, but at the moment my app is only using one controller (MainCtrl in js/controllers.js) and it's starting to get really cluttered. I've got a lot of methods now because the apps functionality is expanding. I'd like to split my controller up into multiple controllers whilst retaining this sidebar functionality
+              {{card.text}}
             </div>
             <div class="add-child"><i class="fa fa-plus"></i></div>
             <div class="add-child-right"><i class="fa fa-ellipsis-v"></i></div>
           </div>
           <ul class="card-tasks">
-            <li>[+3дн] Купить новый стул</li>
+            <li ng-repeat="task in card.tasks">
+              {{task.title}}
+            </li>
           </ul>
         </div>
         <div class="editor" ng-if="row.editor">

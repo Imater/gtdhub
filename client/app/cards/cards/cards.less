@@ -1,5 +1,5 @@
 .cards-tree {
-  background: #000;
+  background: #cbcac8;
   color: #FFF;
   position: absolute;
   top: 0;
@@ -18,6 +18,7 @@
         background: #FFF;
         color: #000;
         min-height: 50px;
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         .text {
           position: absolute;
           top: 30px;
@@ -43,10 +44,6 @@
           text-align: center;
           padding: 5px 10px;
           cursor: pointer;
-          &:hover {
-            opacity: 1;
-            background: #EEE;
-          }
         }
         .add-child {
           position: absolute;
@@ -55,30 +52,23 @@
           color: green;
           display: none;
         }
-        &:hover {
-          .add-child-right {
-            display: block;
-          }
-        }
         .add-child-right {
           position: absolute;
-          left: -10px;
-          top: 40%;
+          right: -20px;
+          top: 0;
           cursor: pointer;
-          height: 40px;
-          padding-top: 10px;
+          height: 26px;
+          width: 20px;
+          text-align: center;
+          padding-top: 6px;
           cursor: pointer;
           i {
             display: inline-block;
             color: #AAA;
           }
-          &:hover {
-            i:before {
-              margin-left: -4px;
-              content: '\f067' !important;
-            }
+          i:before {
+            margin: 0;
           }
-
         }
       }
       .card-tasks {
@@ -90,12 +80,14 @@
           color: #000;
           padding: 5px 10px;
           border-radius: 2px;
+          box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
         }
       }
     }
     .editor {
       min-height: 430px;
-      background: #222;
+      background: #FFF;
+      color: #000;
       .editor-panel {
         padding: 15px;
         .editor-text {
