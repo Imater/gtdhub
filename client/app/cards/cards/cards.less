@@ -1,0 +1,111 @@
+.cards-tree {
+  background: #000;
+  color: #FFF;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  .cards-panel {
+    margin-bottom: 50px;
+    .card-wrap {
+      vertical-align: top;
+      display: inline-block;
+      padding: 10px;
+      .card {
+        position: relative;
+        background: #FFF;
+        color: #000;
+        min-height: 50px;
+        .text {
+          position: absolute;
+          top: 30px;
+          left: 20px;
+          right: 20px;
+          bottom: 15px;
+          overflow: hidden;
+        }
+        .title {
+          position: absolute;
+          font-weight: bold;
+          background: rgba(255,255,255,0.95);
+          top: 5px;
+          left: 20px;
+          right: 0px;
+          font-size: 14px;
+        }
+        .card-menu {
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          opacity: 1;
+          text-align: center;
+          padding: 5px 10px;
+          cursor: pointer;
+          &:hover {
+            opacity: 1;
+            background: #EEE;
+          }
+        }
+        .add-child {
+          position: absolute;
+          bottom: 5px;
+          right: 10px;
+          color: green;
+          display: none;
+        }
+        &:hover {
+          .add-child-right {
+            display: block;
+          }
+        }
+        .add-child-right {
+          position: absolute;
+          left: -10px;
+          top: 40%;
+          cursor: pointer;
+          height: 40px;
+          padding-top: 10px;
+          cursor: pointer;
+          i {
+            display: inline-block;
+            color: #AAA;
+          }
+          &:hover {
+            i:before {
+              margin-left: -4px;
+              content: '\f067' !important;
+            }
+          }
+
+        }
+      }
+      .card-tasks {
+        padding: 5px 0px;
+        list-style: none;
+        li {
+          background: #DDD;
+          margin: 3px 10px;
+          color: #000;
+          padding: 5px 10px;
+          border-radius: 2px;
+        }
+      }
+    }
+    .editor {
+      min-height: 430px;
+      background: #222;
+      .editor-panel {
+        padding: 15px;
+        .editor-text {
+          background: #FFF;
+          color: #000;
+          font-size: 16px;
+          padding: 20px;
+          min-height: 400px;
+        }
+      }
+    }
+  }
+}

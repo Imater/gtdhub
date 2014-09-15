@@ -5,45 +5,31 @@ angular.module('gtdhubApp').controller 'SplitCtrl', ($scope) ->
   $scope.message = 'Hello'
 
   row1 =
-    height: 60
+    height: 100
     cols : [
       {
         width: 20
-        color: '#EEE'
+        color: '#333'
+        include: 'app/cards/tree/tree.html'
+        controller: 'TreeCtrl'
       }
     ,
       {
-        width: 60
+        width: 80
         color: '#FFF'
-      }
-    ,
-      {
-        width: 20
-        color: '#EEE'
-      }
-  ]
+        include: 'app/cards/cards/cards.html'
 
-  row2 =
-    height: 20
-    cols: [
-      {
-        width: 40
-        color: '#AAA'
       }
     ,
       {
-        width: 60
-        color: '#ABA'
+        width: 0
+        color: '#EEE'
       }
   ]
 
   $scope.windows =
     rows: [
       row1
-    ,
-      row2
-    ,
-      row2
     ]
 
   $(".resize-handle").on "mousedown", (e)->

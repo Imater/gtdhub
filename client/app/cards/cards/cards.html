@@ -1,0 +1,50 @@
+<div class="cards-tree" ng-controller="CardsTreeCtrl">
+  <div ng-repeat="panel in panels"
+       class="cards-panel">
+    {{panel.title}}
+    <div class="cards">
+      <div class="card-row"
+           ng-repeat="row in panel.rows">
+        <div class="card-wrap" ng-repeat="card in row.cards" style="width: {{100/panel.rows[0].cards.length}}%">
+          <div class="card"
+               style="height: {{panel.height}}px;"
+               ng-click="row.editor = !row.editor">
+            <div class="title" ng-bind="card.title" ng-click="card.showTask = !card.showTask"></div>
+            <div class="card-menu">
+              <i class="fa fa-angle-down"></i>
+            </div>
+            <div class="text">
+              This is all well and good and works as desired, but at the moment my app is only using one controller (MainCtrl in js/controllers.js) and it's starting to get really cluttered. I've got a lot of methods now because the apps functionality is expanding. I'd like to split my controller up into multiple controllers whilst retaining this sidebar functionality
+            </div>
+            <div class="add-child"><i class="fa fa-plus"></i></div>
+            <div class="add-child-right"><i class="fa fa-ellipsis-v"></i></div>
+          </div>
+          <ul class="card-tasks">
+            <li>[+3дн] Купить новый стул</li>
+          </ul>
+        </div>
+        <div class="editor" ng-if="row.editor">
+          <div class="row1">
+            <div class="editor-panel col-xs-8">
+              <div class="editor-text" contenteditable="true">
+                This is all well and good and works as desired, but at the moment my app is only using one controller (MainCtrl in js/controllers.js) and it's starting to get really cluttered. I've got a lot of methods now because the apps functionality is expanding. I'd like to split my controller up into multiple controllers whilst retaining this sidebar functionality
+              </div>
+            </div>
+            <div class="editor-right col-xs-4">
+              <h5>Дела:</h5>
+              <ul>
+                <li>Купить новый стул</li>
+                <li>Записаться в бассейн</li>
+                <li>Ехать на озеро</li>
+                <li>Подумать</li>
+                <li>Обновить программу</li>
+                <li>Установить на ноутбук офис</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

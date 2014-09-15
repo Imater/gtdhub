@@ -1,8 +1,7 @@
-<div class="tree-wrap">
-    <h5>Projects tree:</h5>
-        <div ng-if="tree = trees">
-            <div ng-include="'/tree-line.html'"></div>
-        </div>
+<div class="tree-wrap" ng-controller="TreeCtrl">
+    <div ng-if="tree = trees">
+        <div ng-include="'/tree-line.html'"></div>
+    </div>
 </div>
 
 

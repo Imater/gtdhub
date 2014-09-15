@@ -29,7 +29,7 @@
       <div class="layout-col"
            ng-repeat="col in row.cols track by $index"
            style="width:{{col.width}}%; background: {{col.color}}">
-          {{col}}
+          <div ng-include="col.include"></div>
     </div>
   </div>
 </div>

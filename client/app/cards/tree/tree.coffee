@@ -6,7 +6,6 @@ angular.module('gtdhubApp').config ($stateProvider) ->
     views:
       'treeView':
         templateUrl : 'app/cards/tree/tree.html'
-        controller: 'TreeCtrl'
       'stageView':
         templateUrl : 'app/cards/stage/stage.html'
         controller: 'StageCtrl'

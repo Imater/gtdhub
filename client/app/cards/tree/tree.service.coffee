@@ -32,14 +32,14 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
       main
     load: ()->
       main = new Tree '1. Working'
-      main2 = main.addChild new Tree '1.1 NetEagles'
-      main3 = main2.addChild new Tree '1.1.1 Web-projects'
-      miass = main3.addChild new Tree '1.1.1.1 Miass'
-      main8 = main2.addChild new Tree '1.1.2 Soft-projects'
-      main9 = main8.addChild new Tree '1.1.2.1 Go-soft'
-      main9 = main8.addChild new Tree '1.1.2.2 Angular-soft'
-      main9 = main8.addChild new Tree '1.1.2.3 Coffee-soft'
-      main9 = main8.addChild new Tree '1.1.2.4 Git-soft'
+      main2 = main.addChild new Tree 'NetEagles'
+      main3 = main2.addChild new Tree 'Web-projects'
+      miass = main3.addChild new Tree 'Miass'
+      main8 = main2.addChild new Tree 'Soft-projects'
+      main9 = main8.addChild new Tree 'Go-soft'
+      main9 = main8.addChild new Tree 'Angular-soft'
+      main9 = main8.addChild new Tree 'Coffee-soft'
+      main9 = main8.addChild new Tree 'Git-soft'
 
       stage1 = miass.addStage new Stage { title: 'Back log', treeId: miass.id }
       stage1.addTask new Task {title: 'Сделать Drag&Drop'}
@@ -61,7 +61,7 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
       stage1.addTask new Task {title: 'Посмотреть фильм'}
       stage1.addTask new Task {title: 'Скачать новую операционку'}
 
-      main3 = main3.addChild new Tree '1.1.1.2 Trello'
+      main3 = main3.addChild new Tree 'Trello'
       main3.addStage new Stage { title: 'To-do', treeId: miass.id }
       main3.addStage new Stage { title: 'Doing', treeId: miass.id }
       main3.addStage new Stage { title: 'Done', treeId: miass.id }
