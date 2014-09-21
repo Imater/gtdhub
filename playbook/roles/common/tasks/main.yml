@@ -1,0 +1,37 @@
+---
+
+- user: name={{user_name}} password={{password}} state=present
+
+- name: Common | Set locales
+  locale_gen: name={{item}} state=present
+  with_items: [en_US.UTF-8, ru_RU.UTF-8]
+
+- name: Common | Create directory
+  file: path=/var/projects/gtdhub owner=deployer recurse=yes state=directory
+
+- name: Common | Create directory logs and keys and upload
+  file: path=/var/projects/gtdhub/{{item}} state=directory
+  with_items: [logs, logs/supervisor, logs/nginx, logs/winston, keys, uploads]
+
+- lineinfile: dest=/etc/environment line={{item}}
+  with_items:
+  - NODE_ENV=production
+  - HOST={{host}}
+  - DB_HOST=localhost
+  - DB_PORT=5432
+  - DB_NAME={{database_name}}
+  - DB_USERNAME={{user_name}}
+  - DB_PASSWORD={{user_password}}
+  - EMAIL_API_KEY={{email.apiKey}}
+  - SMS_SERVICEURL={{sms.serviceurl}}
+  - SMS_USERNAME={{sms.username}}
+  - SMS_PASSWORD={{sms.password}}
+
+- name: Common | Install the zip package
+  apt:
+    pkg: "{{item}}"
+    state: present
+  with_items: [zip, unzip]
+
+- name: Install Midnight commander
+  apt: pkg=mc

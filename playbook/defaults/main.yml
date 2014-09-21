@@ -1,0 +1,11 @@
+user_name: "deployer"
+
+postgresql_version: 9.3
+postgresql_encoding: 'UTF-8'
+postgresql_locale: 'en_US.UTF-8'
+
+postgresql_env:
+  LC_ALL: "{{ postgresql_locale }}"
+  LC_LCTYPE: "{{ postgresql_locale }}"
+
+database_name: "h116"

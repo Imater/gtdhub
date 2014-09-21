@@ -1,0 +1,20 @@
+- name: node.js | Make sure the ansible required dependencies are installed
+  apt:
+    pkg: python-pycurl
+    state: present
+
+- name: node.js | Add the nodejs repository
+  apt_repository:
+    repo: ppa:chris-lea/node.js
+    state: present
+
+- name: node.js | Update the apt cache for the new repository
+  action: apt update-cache=yes
+
+- name: node.js | Install the node.js package
+  apt:
+    pkg: nodejs
+    state: present
+
+- name: node.js | Install coffee-script
+  npm: name=coffee-script global=yes state=latest

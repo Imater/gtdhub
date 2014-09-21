@@ -1,0 +1,10 @@
+- name: Allow useranalysis mariadb access
+  ufw: rule=allow port=3306 src=208.80.155.255
+
+# Deleted since 30 August 2014 - This is now covered by a general access rule in common
+- name: Delete old prod4 3306 specific rule
+  ufw: rule=allow port=3306 src=10.131.243.244 delete=yes
+
+# Deleted since 30 August 2014 - This is now covered by a general access rule in common
+- name: Delete old prod6 3306 specific rule
+  ufw: rule=allow port=3306 src=10.131.243.246 delete=yes

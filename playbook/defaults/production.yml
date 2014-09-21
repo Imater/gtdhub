@@ -1,0 +1,16 @@
+password: ""
+user_password: ""
+
+backup:
+  dbname: ""
+  password: ""
+
+host: ""
+email:
+  apiKey: ""
+sms:
+  serviceurl: ""
+  username: ""
+  password: ""
+mysql_root_password: "See6thoh"
+deb_db_password: "See6thoh"

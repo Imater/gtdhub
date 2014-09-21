@@ -1,0 +1,14 @@
+---
+- name: Installs nginx web server
+  apt: pkg=nginx state=installed update_cache=true
+
+- file: name=/etc/nginx/sites-enabled/default state=absent
+
+- lineinfile: dest=/etc/nginx/nginx.conf regexp=server_names_hash_bucket_size line="server_names_hash_bucket_size 64;"
+
+- name: Copy nginx config
+  copy: src=gtdhub.conf dest=/etc/nginx/sites-available/gtdhub.conf force=yes
+
+- name: Create symlink for nginx config
+  file: src=/etc/nginx/sites-available/gtdhub.conf dest=/etc/nginx/sites-enabled/gtdhub.conf state=link force=yes
+  notify: restart nginx

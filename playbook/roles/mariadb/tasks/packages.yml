@@ -1,0 +1,12 @@
+- name: install curl-config
+  apt: pkg=libcurl4-openssl-dev state=latest
+  sudo: yes
+
+- name: Add MariaDB apt key
+  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
+
+- name: Add MariaDB apt repository
+  apt_repository: repo='deb http://mirror.timeweb.ru/mariadb/repo/10.0/ubuntu precise main'
+
+- name: Install MariaDB
+  apt: pkg=mariadb-server
