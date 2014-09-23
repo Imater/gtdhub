@@ -2,8 +2,8 @@ password: ""
 user_password: ""
 
 backup:
-  dbname: ""
-  password: ""
+  dbname: "h116"
+  password: "See6thoh"
 
 host: ""
 email:
@@ -14,3 +14,8 @@ sms:
   password: ""
 mysql_root_password: "See6thoh"
 deb_db_password: "See6thoh"
+COMMON_APP_DIR: "/var/"
+COMMON_LOG_DIR: "/var/logs/"
+rabbitmq_app_dir: "/var/rabbitmq/"
+rabbitmq_user: "root"
+rabbitmq_group: "root"

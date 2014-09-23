@@ -47,7 +47,7 @@ listenQueue = (conn, listenPath, workerFunction) ->
       console.info "Waiting server for "+listenPath
 
 
-amqp.connect("amqp://localhost").then (conn) ->
+amqp.connect("amqp://edx:edx@localhost/gtdhub").then (conn) ->
   amqp.conn = conn
   _.each controller, (workerFunction, queuePath) ->
     listenQueue conn, queuePath, workerFunction

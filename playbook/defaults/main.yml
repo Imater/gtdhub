@@ -9,3 +9,5 @@ postgresql_env:
   LC_LCTYPE: "{{ postgresql_locale }}"
 
 database_name: "h116"
+COMMON_ENVIRONMENT: "production"
+COMMON_DEPLOYMENT: ""

@@ -35,3 +35,6 @@
 
 - name: Install Midnight commander
   apt: pkg=mc
+
+- name: Install Git
+  apt: pkg=git
