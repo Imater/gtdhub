@@ -1,4 +1,4 @@
-amqp = require "amqplib"
+amqp = require "amqp"
 config = require("./config/environment")
 Sequelize = require 'sequelize'
 hs = require('node-handlersocket');
@@ -24,8 +24,18 @@ con.on 'connect', ()->
 
 controller = require("./api/article")
 
+if false
+  amqp.conn.queue "api/article/tmp", (q) ->
+    console.info "queue ok"
+    q.bind("#");
+    q.subscribe { ack: true, prefetchCount: 1 }, (message)->
+      console.info "Message", message
+
+
 listenQueue = (conn, listenPath, workerFunction) ->
-  conn.createChannel().then (ch) ->
+  conn.queue listenPath, (q) ->
+    console.info "Waiting server for "+listenPath
+    q.bind("#")
     reply = (msg) ->
       replyFunction = (status, res)->
         console.info 'yes sir! ;-)       ' + listenPath + "  "+ new Date().getTime()
@@ -36,22 +46,55 @@ listenQueue = (conn, listenPath, workerFunction) ->
       workerFunction JSON.parse(msg.content.toString()),
         json: replyFunction
         send: replyFunction
-    ok = ch.assertQueue(listenPath,
-      durable: true
-    )
-    ok = ok.then ->
-      ch.prefetch 1
-      ch.consume listenPath, reply
+    q.subscribe listenPath, reply
+    return
 
-    ok.then ->
-      console.info "Waiting server for "+listenPath
-
-
-amqp.connect("amqp://edx:edx@localhost/gtdhub").then (conn) ->
-  amqp.conn = conn
+createChannels = (conn) ->
   _.each controller, (workerFunction, queuePath) ->
     listenQueue conn, queuePath, workerFunction
-  process.once "SIGINT", ->
-    console.info "close"
-    conn.close()
+  #process.once "SIGINT", ->
+  #  console.info "close"
+  #  conn.close()
 
+amqp.conn = amqp.createConnection
+  host: "localhost"
+  port: 5672
+  login: "db"
+  password: "gtdhubdb"
+  connectionTimeout: 30
+  authMechanism: "AMQPLAIN"
+  vhost: "/gtdhub/db"
+  noDelay: true
+  ssl:
+    enabled: false
+
+amqp.conn.on "connect", ()->
+  console.info "Queue connection ok"
+
+amqp.conn.on "ready", ()->
+  console.info "Queue connection Ready"
+  createChannels amqp.conn
+  console.log "listening on msg_queue"
+  amqp.conn.queue "api1.article.get1", (q) ->
+    console.info 'queue ok connected'
+    q.subscribe (message, headers, deliveryInfo, m) ->
+      console.info "RECIEVED RPC", deliveryInfo.routingKey, message
+
+      #return index sent
+      amqp.conn.publish m.replyTo,
+        response: "OK"
+        index: message.index
+      ,
+        contentType: "application/json"
+        contentEncoding: "utf-8"
+        correlationId: m.correlationId
+
+if false
+  amqp.conn.queue "api/article/tmp", (q) ->
+    console.info "queue ok"
+    q.bind("#");
+    q.subscribe { ack: true, prefetchCount: 1 }, (message)->
+      console.info "Message", message
+
+amqp.conn.on "error", (err)->
+  console.info "QUEUE error = ", err

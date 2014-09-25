@@ -1,10 +1,6 @@
-amqp = require "amqplib"
 uuid = require "node-uuid"
 
 conn = undefined
-
-amqp.connect("amqp://localhost").then (_conn) ->
-  conn = _conn
 
 if false
   express = require("express")

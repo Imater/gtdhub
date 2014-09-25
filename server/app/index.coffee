@@ -3,7 +3,7 @@ express = require("express")
 mongoose = require("mongoose")
 config = require("./config/environment")
 Sequelize = require 'sequelize'
-amqp = require "amqplib"
+amqp = require "amqp"
 
 # Connect to database
 mongoose.connect config.mongo.uri, config.mongo.options
@@ -17,8 +17,32 @@ Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.d
   maxConcurrentQueries: 100
 )
 
-amqp.connect("amqp://localhost").then (_conn) ->
-  amqp.conn = _conn
+amqp.conn = amqp.createConnection
+  host: "localhost"
+  port: 5672
+  login: "app"
+  password: "gtdhubapp"
+  connectionTimeout: 0
+  authMechanism: "AMQPLAIN"
+  vhost: "/gtdhub/db"
+  noDelay: true
+  ssl:
+    enabled: false
+
+amqp.conn.on "connect", ()->
+  console.info "Queue connection ok"
+
+
+amqp.rpc = new (require("./components/rpc"))(amqp.conn)
+
+amqp.conn.on "ready", ()->
+  console.info "Queue connection Ready"
+
+setTimeout ->
+  amqp.rpc.makeRequest "api1.article.get1", {ass: 2, index: 1}, (err, answer) ->
+    console.info "ANSWER", err, answer
+, 5000
+
 
 process.on 'exit', () ->
   amqp.conn.close() if amqp.conn

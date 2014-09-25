@@ -1,4 +1,4 @@
-amqp = require "amqplib"
+amqp = require "amqp"
 uuid = require "node-uuid"
 
 askQueue = (channelPath, cb) ->
@@ -8,25 +8,30 @@ askQueue = (channelPath, cb) ->
       answer = JSON.parse(answer.content.toString())
       res.setHeader("Content-Type", "application/json");
       res.json answer.status, answer.res
-    amqp.conn.createChannel().then (ch) ->
-      ok = ch.assertQueue "",
-        exclusive: true
-      .then (qok) ->
-        qok.queue
+    return
+    amqp.conn.queue channelPath, {
+        autoDelete: false
+        durable: true
+      }, (q) ->
+      console.info "queue connected", q
+      queueReq = { body: req.body, params: req.params }
+      amqp.conn.publish channelPath, new Buffer( JSON.stringify( queueReq ) ),
+        { deliveryMode: 2 }
 
-      ok = ok.then (queue) ->
-        ch.consume queue, (answer)->
-          responseFn(answer, amqp.conn)
-        ,
-          noAck: true
-        .then ->
-          queue
+if false
+  ok = ok.then (queue) ->
+    ch.consume queue, (answer)->
+      responseFn(answer, amqp.conn)
+    ,
+      noAck: true
+    .then ->
+      queue
 
-      ok.then (queue) ->
-        queueReq = { body: req.body, params: req.params }
-        ch.sendToQueue channelPath, new Buffer( JSON.stringify( queueReq ) ),
-          correlationId: corrId
-          replyTo: queue
+  ok.then (queue) ->
+    queueReq = { body: req.body, params: req.params }
+    ch.sendToQueue channelPath, new Buffer( JSON.stringify( queueReq ) ),
+      correlationId: corrId
+      replyTo: queue
 
 express = require("express")
 router = express.Router()
