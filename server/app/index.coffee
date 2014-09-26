@@ -6,7 +6,7 @@ Sequelize = require 'sequelize'
 amqp = require "amqp"
 
 # Connect to database
-mongoose.connect config.mongo.uri, config.mongo.options
+#mongoose.connect config.mongo.uri, config.mongo.options
 
 Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.db.password,
   dialect: 'mysql'
