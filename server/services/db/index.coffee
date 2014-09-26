@@ -31,23 +31,51 @@ if false
     q.subscribe { ack: true, prefetchCount: 1 }, (message)->
       console.info "Message", message
 
+if false
+  listenQueue = (conn, listenPath, workerFunction) ->
+    conn.queue listenPath, (q) ->
+      console.info "Waiting server for "+listenPath
+      q.bind("#")
+      reply = (msg) ->
+        replyFunction = (status, res)->
+          console.info 'yes sir! ;-)       ' + listenPath + "  "+ new Date().getTime()
+          ch.sendToQueue msg.properties.replyTo, new Buffer(JSON.stringify({status, res})),
+            correlationId: msg.correlationId
+            ch.ack msg
+
+        workerFunction JSON.parse(msg.content.toString()),
+          json: replyFunction
+          send: replyFunction
+      q.subscribe listenPath, reply
+      return
 
 listenQueue = (conn, listenPath, workerFunction) ->
-  conn.queue listenPath, (q) ->
-    console.info "Waiting server for "+listenPath
-    q.bind("#")
-    reply = (msg) ->
-      replyFunction = (status, res)->
-        console.info 'yes sir! ;-)       ' + listenPath + "  "+ new Date().getTime()
+  amqp.conn.queue listenPath, (q) ->
+    replyFunction = (m) ->
+      (status, res)->
+        amqp.conn.publish m.replyTo,
+          status: status
+          res: res
+        ,
+          contentType: "application/json"
+          contentEncoding: "utf-8"
+          correlationId: m.correlationId
+
+    console.info "queue waiting for #{listenPath}"
+    q.subscribe (message, headers, deliveryInfo, m) ->
+      console.info "RECIEVED RPC", deliveryInfo.routingKey, message
+      workerFunction message,
+        json: replyFunction(m)
+        send: replyFunction(m)
+
+###        console.info 'yes sir! ;-)       ' + listenPath + "  "+ new Date().getTime()
         ch.sendToQueue msg.properties.replyTo, new Buffer(JSON.stringify({status, res})),
           correlationId: msg.correlationId
           ch.ack msg
 
-      workerFunction JSON.parse(msg.content.toString()),
-        json: replyFunction
-        send: replyFunction
-    q.subscribe listenPath, reply
-    return
+###
+      #return index sent
+
 
 createChannels = (conn) ->
   _.each controller, (workerFunction, queuePath) ->
@@ -57,11 +85,11 @@ createChannels = (conn) ->
   #  conn.close()
 
 amqp.conn = amqp.createConnection
-  host: "localhost"
-  port: 5672
-  login: "db"
-  password: "gtdhubdb"
-  connectionTimeout: 30
+  host: config.amqp.host
+  port: config.amqp.port
+  login: config.amqp.login
+  password: config.amqp.password
+  connectionTimeout: 3000
   authMechanism: "AMQPLAIN"
   vhost: "/gtdhub/db"
   noDelay: true

@@ -3,20 +3,15 @@ uuid = require "node-uuid"
 
 askQueue = (channelPath, cb) ->
   return (req, res) ->
-    corrId = uuid()
-    responseFn = (answer, conn) ->
-      answer = JSON.parse(answer.content.toString())
+    queueReq = { body: req.body, params: req.params }
+    console.info "send request to queue", channelPath
+    amqp.rpc.makeRequest channelPath, queueReq, (err, answer) ->
+      if err
+        res.send 500, err
+        return
+      console.info "answer is ..........", err, answer
       res.setHeader("Content-Type", "application/json");
       res.json answer.status, answer.res
-    return
-    amqp.conn.queue channelPath, {
-        autoDelete: false
-        durable: true
-      }, (q) ->
-      console.info "queue connected", q
-      queueReq = { body: req.body, params: req.params }
-      amqp.conn.publish channelPath, new Buffer( JSON.stringify( queueReq ) ),
-        { deliveryMode: 2 }
 
 if false
   ok = ok.then (queue) ->

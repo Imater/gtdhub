@@ -19,3 +19,9 @@ module.exports =
     username: "postgres"
     password: "990990"
     port: 5432
+
+  amqp:
+    host: "178.62.235.131"
+    port: 5672
+    login: "db"
+    password: "gtdhubdb"

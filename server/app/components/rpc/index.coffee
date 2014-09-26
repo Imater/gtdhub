@@ -1,7 +1,6 @@
 #time to wait for response in ms
 AmqpRpc = (connection) ->
   self = this
-  console.info "connection", connection
   @connection = (if typeof (connection) isnt "undefined" then connection else amqp.createConnection())
   @requests = {} #hash to store request in wait for response
   @response_queue = false #plaseholder for the future queue
@@ -42,8 +41,6 @@ AmqpRpc::makeRequest = (queue_name, content, callback) ->
 
   #make sure we have a response queue
   self.setupResponseQueue ->
-    console.info "qu"
-
     #put the request on a queue
     self.connection.publish queue_name, content,
       correlationId: correlationId
@@ -55,8 +52,6 @@ AmqpRpc::makeRequest = (queue_name, content, callback) ->
   return
 
 AmqpRpc::setupResponseQueue = (next) ->
-  console.info "qu2"
-
   #don't mess around if we have a queue
   return next()  if @response_queue
   self = this

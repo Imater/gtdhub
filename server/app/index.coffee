@@ -18,11 +18,11 @@ Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.d
 )
 
 amqp.conn = amqp.createConnection
-  host: "localhost"
-  port: 5672
-  login: "app"
-  password: "gtdhubapp"
-  connectionTimeout: 0
+  host: config.amqp.host
+  port: config.amqp.port
+  login: config.amqp.login
+  password: config.amqp.password
+  connectionTimeout: 30000
   authMechanism: "AMQPLAIN"
   vhost: "/gtdhub/db"
   noDelay: true
@@ -38,10 +38,11 @@ amqp.rpc = new (require("./components/rpc"))(amqp.conn)
 amqp.conn.on "ready", ()->
   console.info "Queue connection Ready"
 
-setTimeout ->
-  amqp.rpc.makeRequest "api1.article.get1", {ass: 2, index: 1}, (err, answer) ->
-    console.info "ANSWER", err, answer
-, 5000
+if false
+  setTimeout ->
+    amqp.rpc.makeRequest "api1.article.get1", {ass: 2, index: 1}, (err, answer) ->
+      console.info "ANSWER", err, answer
+  , 5000
 
 
 process.on 'exit', () ->

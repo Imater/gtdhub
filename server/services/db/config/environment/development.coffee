@@ -15,3 +15,10 @@ module.exports =
     username: "root"
     password: ""
     port: 3306
+
+  amqp:
+    host: "localhost"
+    port: 5672
+    login: "db"
+    password: "gtdhubdb"
+
