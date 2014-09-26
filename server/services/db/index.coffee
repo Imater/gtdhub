@@ -13,8 +13,13 @@ Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.d
   maxConcurrentQueries: 100
 )
 
-con = hs.connect({host: '127.0.0.1', port: 9999})
+con = hs.connect
+  host: config.handlersocket.host
+  port: config.handlersocket.port
+
 hs.con = con
+con.on 'error', (err)->
+  console.info "handlersocket error", err
 con.on 'connect', ()->
   con.openIndex 'gtdhub', 'articles', 'PRIMARY', ['title', 'html'], (err, index) ->
     console.time 'start'

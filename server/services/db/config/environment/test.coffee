@@ -20,3 +20,7 @@ module.exports =
     port: 5672
     login: "db"
     password: "gtdhubdb"
+
+  handlersocket:
+    host: "localhost"
+    port: 9998
