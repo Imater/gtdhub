@@ -1,0 +1,15 @@
+---
+- name: install package
+  apt: pkg=rsnapshot state=installed update_cache=true
+
+- name: create directory for backups
+  file: path=/var/snapshots/gtdhub state=directory
+
+- name: copy script to create backups
+  template: src=create-backup.sh dest=/var/projects/gtdhub/create-backup.sh mode="+100" force=yes
+
+- name: copy rsnapshot config
+  copy: src=rsnapshot.conf dest=/etc/rsnapshot.conf force=yes
+
+- name: copy cron config
+  copy: src=cron.conf dest=/etc/cron.d/rsnapshot force=yes

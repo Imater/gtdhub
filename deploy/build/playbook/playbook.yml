@@ -1,0 +1,9 @@
+---
+- hosts: 4tree-build
+  vars_files:
+    - 'defaults/main.yml'
+    - 'defaults/production.yml'
+  roles:
+    - common
+    - apt-packages
+    - teamcity-setup

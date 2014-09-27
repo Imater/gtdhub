@@ -1,0 +1,21 @@
+password: ""
+user_password: ""
+
+backup:
+  dbname: "h116"
+  password: "See6thoh"
+
+host: ""
+email:
+  apiKey: ""
+sms:
+  serviceurl: ""
+  username: ""
+  password: ""
+mysql_root_password: ""
+deb_db_password: ""
+COMMON_APP_DIR: "/var/"
+COMMON_LOG_DIR: "/var/logs/"
+rabbitmq_app_dir: "/var/rabbitmq/"
+rabbitmq_user: "root"
+rabbitmq_group: "root"

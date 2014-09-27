@@ -1,0 +1,10 @@
+---
+- name: Apply common configuration to all nodes
+  hosts:
+    - 4tree-db
+  vars_files:
+    - 'defaults/main.yml'
+    - 'defaults/production.yml'
+  user: root
+  roles:
+    - role: rabbitmq
