@@ -41,3 +41,6 @@
 
 - name: Install Gdebi for rabbitMQ
   apt: pkg=gdebi
+
+- name: Install Gdebi for Make
+  apt: pkg=build-essential
