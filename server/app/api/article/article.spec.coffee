@@ -38,7 +38,7 @@ describe "Article  save", ->
       active: true
     }).expect(201)
     .end (err, res) ->
-      newId = res.body.id
+      newId = res.body._id
       done();
 
   for i in [0..3]

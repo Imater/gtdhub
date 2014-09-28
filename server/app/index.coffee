@@ -5,9 +5,6 @@ config = require("./config/environment")
 Sequelize = require 'sequelize'
 amqp = require "amqp"
 
-# Connect to database
-#mongoose.connect config.mongo.uri, config.mongo.options
-
 Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.db.password,
   dialect: 'mysql'
   port: config.db.port or 3306

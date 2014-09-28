@@ -1,18 +1,3 @@
-uuid = require "node-uuid"
-
-conn = undefined
-
-if false
-  express = require("express")
-  controller = require("./article.controller.coffee")
-  router = express.Router()
-  router.get "/", controller.index
-  router.get "/:id", controller.show
-  router.post "/", controller.create
-  router.put "/:id", controller.update
-  router.patch "/:id", controller.update
-  router.delete "/:id", controller.destroy
-
 controller = require("./article.controller.coffee")
 
 queueController =

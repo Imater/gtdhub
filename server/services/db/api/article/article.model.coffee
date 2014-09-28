@@ -1,5 +1,19 @@
+"use strict"
+mongoose = require("mongoose")
+Schema = mongoose.Schema
+ModelSchema = new Schema(
+  title: String
+  html: String
+  date: Date
+  active: Boolean
+)
+module.exports = mongoose.model("Article", ModelSchema)
+
+###
 Sequelize = require 'sequelize'
 sequelize = Sequelize.sequelize
+
+
 
 sequelize.define 'article',
     title:
@@ -17,3 +31,4 @@ sequelize.define 'article',
 
 module.exports = sequelize.models
 
+###

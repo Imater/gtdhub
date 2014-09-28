@@ -51,7 +51,6 @@ exports.update = (req, res) ->
       res.json 200, thing
 
 
-
 exports.destroy = (req, res) ->
   Thing.findById req.params.id, (err, thing) ->
     return handleError(res, err)  if err

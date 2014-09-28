@@ -21,62 +21,41 @@ handleError = (res, err) ->
   res.send 500, err
 
 _ = require("lodash")
-hs = require('node-handlersocket');
 
-db = require './article.model.coffee'
-cache_manager = require('cache-manager')
-memory_cache = cache_manager.caching({store: 'memory', max: 5, ttl: 1})
-#
-allFields = Object.keys(db.article.rawAttributes)
+Article = require("./article.model.coffee")
 
 exports.index =
   (req, res) ->
-    hs.con.openIndex 'gtdhub', 'articles', 'PRIMARY', allFields, (err, index) ->
-      index.find '>=', [0], {limit: 1000, offset: 0}, (err, articles) ->
-        return res.send(404)  unless articles
-        articles = _.map articles, (value, key)->
-          _.zipObject allFields, value
-        res.json 200, articles
-
-exports.create = (req, res) ->
-  db.article.create(req.body)
-  .complete (err, article) ->
-    key = 'article_'+article.id
-    memory_cache.wrap key, (cacheCb) ->
-      cacheCb(err, article)
-    , (err, article) ->
-      res.json 201, article
+    Article.find (err, articles) ->
+      return handleError(res, err)  if err
+      res.json 200, articles
 
 exports.show = (req, res) ->
-    hs.con.openIndex 'gtdhub', 'articles', 'PRIMARY', allFields, (err, index) ->
-      index.find '=', [req.params.id], {limit: 1, offset: 0}, (err, article) ->
-        return res.send(404)  unless article
-        article = _.zipObject allFields, article[0]
-        res.json 200, article
+  console.info "show ...."
+  Article.findById req.params.id, (err, article) ->
+    return handleError(res, err)  if err
+    return res.send(404)  unless article
+    res.json article
+
+exports.create = (req, res) ->
+  Article.create req.body, (err, article) ->
+    return handleError(res, err)  if err
+    res.json 201, article
 
 exports.update = (req, res) ->
-  db.article.find
-    where:
-      id: req.params.id
-  .complete (err, article) ->
+  delete req.body._id  if req.body._id
+  Article.findById req.params.id, (err, article) ->
     return handleError(res, err)  if err
     return res.send(404)  unless article
     updated = _.merge(article, req.body)
-    updated.save().complete (err, article) ->
-      key = 'article_'+req.params.id
-      memory_cache.del(key)
+    updated.save (err) ->
       return handleError(res, err)  if err
       res.json 200, article
 
 exports.destroy = (req, res) ->
-  db.article.find
-    where:
-      id: req.params.id
-  .complete (err, article) ->
+  Article.findById req.params.id, (err, article) ->
     return handleError(res, err)  if err
     return res.send(404)  unless article
-    article.destroy().complete (err) ->
-      key = 'article_'+req.params.id
-      memory_cache.del(key)
+    article.remove (err) ->
       return handleError(res, err)  if err
       res.send 204

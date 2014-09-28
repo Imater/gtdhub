@@ -19,8 +19,10 @@ angular.module('gtdhubApp')
     return
 
   $scope.finishEdit = (el, article) ->
+    console.info "ARTICLE = ", article
     articleHtml = $(el.target).parents('.article-wrap:first')
     articleHtml.find('.redactor_toolbar').slideUp 150
+    article.id = article?._id
     $http.put("/api/articles/#{article.id}", article).success (resArticle) ->
       $timeout ()->
         article.editShow = false
@@ -40,7 +42,7 @@ angular.module('gtdhubApp')
 
 
   $scope.deleteArticle = (el, article) ->
-    $http.delete("/api/articles/#{article.id}").success (resArticle) ->
+    $http.delete("/api/articles/#{article._id}").success (resArticle) ->
       $scope.refreshArticles()
 
   $scope.filterBlogTreeMenu = {
@@ -74,6 +76,6 @@ angular.module('gtdhubApp')
   $scope.refreshArticles = ->
     $http.get('/api/articles').success (articles) ->
       $scope.articles = articles
-      socket.syncUpdates 'article', $scope.articles
+      #socket.syncUpdates 'article', $scope.articles
 
   $scope.refreshArticles()

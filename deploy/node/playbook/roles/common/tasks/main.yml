@@ -27,6 +27,20 @@
   - SMS_USERNAME={{sms.username}}
   - SMS_PASSWORD={{sms.password}}
 
+- lineinfile: dest=/etc/hosts regexp=178.62.223.164 line="178.62.223.164 gtdhub-node-1"
+  tags:
+    - hosts
+- lineinfile: dest=/etc/hosts regexp=188.226.143.126 line="188.226.143.126 gtdhub-node-2"
+  tags:
+    - hosts
+- lineinfile: dest=/etc/hosts regexp=178.62.7.92 line="178.62.7.92 gtdhub-node-3"
+  tags:
+    - hosts
+- lineinfile: dest=/etc/hosts regexp=178.62.235.131 line="178.62.235.131 4tree-db"
+  tags:
+    - hosts
+
+
 - name: Common | Install the zip package
   apt:
     pkg: "{{item}}"
@@ -44,3 +58,5 @@
 
 - name: Install Gdebi for Make
   apt: pkg=build-essential
+
+- include: mongodb.yml

@@ -2,8 +2,8 @@
 - name: Apply common configuration to all nodes
   hosts:
     - gtdhub-node
-    - 4tree-build
-    - 4tree-db
+#    - 4tree-build
+#    - 4tree-db
   vars_files:
     - 'defaults/main.yml'
     - 'defaults/production.yml'
@@ -13,6 +13,6 @@
     - role: common
     - role: nginx
     - role: nodejs
-    - role: mariadb
+#    - role: mariadb
     - role: supervisor
     - role: rsnapshot
