@@ -12,6 +12,7 @@ mongoose.connect "mongodb://178.62.223.164/gtdhub,"+
     else
       console.info "Mongo connected"
 
+mongoose.set('trace', true);
 
 listenQueue = (conn, listenPath, workerFunction) ->
   amqp.conn.queue listenPath, (q) ->
