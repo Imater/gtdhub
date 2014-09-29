@@ -43,7 +43,8 @@
     "sol-redis-pool": "^0.2.0",
     "static-favicon": "~1.0.1",
     "webshot": "^0.15.3",
-    "when": "^3.4.4"
+    "when": "^3.4.4",
+    "winston": "^0.8.0"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",

@@ -57,15 +57,8 @@ require("./config/express") app
 require("./routes") app
 
 
-Sequelize.sequelize.sync().complete (err) ->
-  if err
-    console.info "sync error"
-    throw err
-  else
-    # Start server
-    console.info 'start-listen'
-    server.listen config.port, config.ip, ->
-      console.log "Express server listening on %d, in %s mode", config.port, app.get("env")
+server.listen config.port, config.ip, ->
+  console.log "Express server listening on %d, in %s mode", config.port, app.get("env")
 
 
 # Expose app

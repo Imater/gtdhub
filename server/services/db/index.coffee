@@ -2,15 +2,15 @@ amqp = require "amqp"
 config = require("./config/environment")
 mongoose = require("mongoose")
 _ = require 'lodash'
-
+logger = require("./components/logger")
 # Connect to database
 mongoose.connect "mongodb://178.62.223.164/gtdhub,"+
   "mongodb://188.226.143.126/gtdhub,"+
   "mongodb://178.62.7.92/gtdhub", (err) ->
     if err
-      console.info "Mongo connection error #{err}"
+      logger.info "Mongo connection error #{err}"
     else
-      console.info "Mongo connected"
+      logger.info "Mongo connected"
 
 mongoose.set('trace', true);
 
@@ -26,9 +26,9 @@ listenQueue = (conn, listenPath, workerFunction) ->
           contentEncoding: "utf-8"
           correlationId: m.correlationId
 
-    console.info "queue waiting for #{listenPath}"
+    logger.info "queue waiting for #{listenPath}"
     q.subscribe (message, headers, deliveryInfo, m) ->
-      console.info "RECIEVED RPC", deliveryInfo.routingKey, message
+      logger.info "RECIEVED RPC", deliveryInfo.routingKey, message
       workerFunction message,
         json: replyFunction(m)
         send: replyFunction(m)
@@ -39,7 +39,7 @@ createChannels = (conn) ->
   _.each controller, (workerFunction, queuePath) ->
     listenQueue conn, queuePath, workerFunction
   #process.once "SIGINT", ->
-  #  console.info "close"
+  #  logger.info "close"
   #  conn.close()
 
 amqp.conn = amqp.createConnection
@@ -55,11 +55,11 @@ amqp.conn = amqp.createConnection
     enabled: false
 
 amqp.conn.on "connect", ()->
-  console.info "Queue connection ok"
+  logger.info "Queue connection ok"
 
 amqp.conn.on "ready", ()->
-  console.info "Queue connection Ready"
+  logger.info "Queue connection Ready"
   createChannels amqp.conn
 
 amqp.conn.on "error", (err)->
-  console.info "QUEUE error = ", err
+  logger.info "QUEUE error = ", err
