@@ -30,4 +30,4 @@ module.exports =
     host: "localhost"
     port: 9998
 
-  logfile: "../../../../logs/winston/service-db.log"
+  logfile: "/var/projects/gtdhub/logs/winston/service-db.log"
