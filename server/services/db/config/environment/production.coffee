@@ -29,3 +29,5 @@ module.exports =
   handlersocket:
     host: "localhost"
     port: 9998
+
+  logfile: "../../../../logs/winston/service-db.log"
