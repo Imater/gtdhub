@@ -1,8 +1,11 @@
 amqp = require "amqp"
 uuid = require "node-uuid"
 
+logger = require "winston"
+
 askQueue = (channelPath, cb) ->
   return (req, res) ->
+    logger.profile "Ask queue #{channelPath}"
     queueReq = { body: req.body, params: req.params }
     console.info "send request to queue", channelPath
     amqp.rpc.makeRequest channelPath, queueReq, (err, answer) ->
@@ -11,6 +14,7 @@ askQueue = (channelPath, cb) ->
         return
       console.info "answer is ..........", err, answer
       res.setHeader("Content-Type", "application/json");
+      logger.profile "Ask queue #{channelPath}"
       res.json answer.status, answer.res
 
 if false

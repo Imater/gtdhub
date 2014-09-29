@@ -4,6 +4,7 @@ mongoose = require("mongoose")
 config = require("./config/environment")
 Sequelize = require 'sequelize'
 amqp = require "amqp"
+logger = require("./components/logger")
 
 Sequelize.sequelize = new Sequelize(config.db.name, config.db.username, config.db.password,
   dialect: 'mysql'
@@ -27,23 +28,23 @@ amqp.conn = amqp.createConnection
     enabled: false
 
 amqp.conn.on "connect", ()->
-  console.info "Queue connection ok"
+  logger.info "Queue connection ok"
 
 
 amqp.rpc = new (require("./components/rpc"))(amqp.conn)
 
 amqp.conn.on "ready", ()->
-  console.info "Queue connection Ready"
+  logger.info "Queue connection Ready"
 
 if false
   setTimeout ->
     amqp.rpc.makeRequest "api1.article.get1", {ass: 2, index: 1}, (err, answer) ->
-      console.info "ANSWER", err, answer
+      logger.info "ANSWER", err, answer
   , 5000
 
 
-process.on 'exit', () ->
-  amqp.conn.close() if amqp.conn
+#process.on 'exit', () ->
+#  amqp.conn.close() if amqp.conn
 
 # Populate DB with sample data
 require "./config/seed" if config.seedDB
@@ -58,7 +59,7 @@ require("./routes") app
 
 
 server.listen config.port, config.ip, ->
-  console.log "Express server listening on %d, in %s mode", config.port, app.get("env")
+  logger.log "Express server listening on %d, in %s mode", config.port, app.get("env")
 
 
 # Expose app

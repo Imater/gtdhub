@@ -25,3 +25,5 @@ module.exports =
     port: 5672
     login: "app"
     password: "gtdhubapp"
+
+  logfile: "/var/projects/gtdhub/logs/winston/service-app.log"
