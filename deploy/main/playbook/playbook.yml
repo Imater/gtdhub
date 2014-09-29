@@ -7,4 +7,6 @@
     - 'defaults/production.yml'
   user: root
   roles:
+    - role: common
     - role: rabbitmq
+    - role: nginx
