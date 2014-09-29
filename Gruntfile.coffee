@@ -291,9 +291,7 @@ module.exports = (grunt) ->
     useminPrepare:
       html: ["<%= yeoman.client %>/index.html"]
       options:
-        dest: [
-          "<%= yeoman.dist %>/public"
-        ]
+        dest: "<%= yeoman.dist %>/public"
 
 
     # Performs rewrites based on rev and the useminPrepare configuration
