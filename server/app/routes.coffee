@@ -18,5 +18,4 @@ module.exports = (app) ->
 
   # All other routes should redirect to the index.html
   app.route("/*").get (req, res) ->
-    console.info app.get("appPath") + "/index.html"
-    res.sendfile config.root + app.get("appPath") + "/index.html"
+    res.sendfile app.get("appPath") + "/index.html"
