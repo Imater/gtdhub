@@ -7,7 +7,6 @@ askQueue = (channelPath, cb) ->
   return (req, res) ->
     logger.profile "Ask queue #{channelPath}"
     queueReq = { body: req.body, params: req.params }
-    console.info "send request to queue", channelPath
     amqp.rpc.makeRequest channelPath, queueReq, (err, answer) ->
       if err
         res.send 500, err

@@ -41,11 +41,19 @@ module.exports = (app) ->
         console.log "db connection open"
       )
     )
+
+
+  errorHandler = ()->
+    (req, res, next)->
+      res.sendfile("index.html");
+
   if "production" is env
     app.use favicon(path.join(config.root, "public", "favicon.ico"))
     app.use express.static(path.join(config.root, "public"))
     app.set "appPath", config.root + "/public"
     app.use morgan("dev")
+    app.use errorHandler() # Error handler - has to be last
+
   if "development" is env or "test" is env
     console.info 'express-started'
     app.use require("connect-livereload")({port: 35730})
