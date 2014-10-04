@@ -3,7 +3,7 @@
 # Production specific configuration
 # =================================
 module.exports =
-
+  isProduction: true
 # Server IP
   ip: process.env.OPENSHIFT_NODEJS_IP or process.env.IP or `undefined`
 
