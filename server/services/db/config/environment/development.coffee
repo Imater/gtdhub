@@ -7,6 +7,7 @@ module.exports =
 # MongoDB connection options
   mongo:
     uri: "mongodb://localhost/gtdhub-dev"
+    hosts: "mongodb://localhost/gtdhub-dev"
 
   seedDB: false
 

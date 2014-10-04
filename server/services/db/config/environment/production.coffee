@@ -22,7 +22,7 @@ module.exports =
     port: 5432
 
   amqp:
-    host: "178.62.235.131"
+    host: "main"
     port: 5672
     login: "db"
     password: "gtdhubdb"

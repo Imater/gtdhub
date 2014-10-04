@@ -4,6 +4,7 @@ mongoose = require("mongoose")
 _ = require 'lodash'
 logger = require("./components/logger")
 # Connect to database
+console.info config.mongo.hosts
 mongoose.connect config.mongo.hosts, (err) ->
     if err
       logger.info "Mongo connection error #{err}"
