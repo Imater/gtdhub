@@ -13,6 +13,7 @@ module.exports =
 # MongoDB connection options
   mongo:
     uri: process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME or "mongodb://localhost/trello"
+    hosts: "mongodb://node-1/gtdhub, mongodb://node-2/gtdhub, mongodb://node-3/gtdhub"
 
   db:
     name: "gtdhub"

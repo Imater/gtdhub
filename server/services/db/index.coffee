@@ -4,9 +4,7 @@ mongoose = require("mongoose")
 _ = require 'lodash'
 logger = require("./components/logger")
 # Connect to database
-mongoose.connect "mongodb://178.62.223.164/gtdhub,"+
-  "mongodb://188.226.143.126/gtdhub,"+
-  "mongodb://178.62.7.92/gtdhub", (err) ->
+mongoose.connect config.mongo.hosts, (err) ->
     if err
       logger.info "Mongo connection error #{err}"
     else
