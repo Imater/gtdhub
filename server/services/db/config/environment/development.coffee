@@ -27,4 +27,4 @@ module.exports =
     host: "localhost"
     port: 9998
 
-  logfile: "../../../logs/winston/service-db.log"
+  logfile: "logs/winston/service-db.log"

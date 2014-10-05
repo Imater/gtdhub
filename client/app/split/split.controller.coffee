@@ -8,7 +8,8 @@ angular.module('gtdhubApp').controller 'SplitCtrl', ($scope) ->
     height: 100
     cols : [
       {
-        width: 20
+        width: 0
+        hide: true
         color: '#C6C5C3'
         include: 'app/cards/tree/tree.html'
         controller: 'TreeCtrl'
@@ -23,6 +24,7 @@ angular.module('gtdhubApp').controller 'SplitCtrl', ($scope) ->
     ,
       {
         width: 0
+        hide: true
         color: '#EEE'
       }
   ]

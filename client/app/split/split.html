@@ -24,11 +24,11 @@
 <div class="layout-wrap">
   <div class="layout-table"
        ng-repeat="row in windows.rows track by $index"
-       style="height:{{row.height}}%;">
+       style="height:{{row.height}}%;" ng-show="!row.hide">
     <div class="layout-row">
       <div class="layout-col"
            ng-repeat="col in row.cols track by $index"
-           style="width:{{col.width}}%; background: {{col.color}}">
+           style="width:{{col.width}}%; background: {{col.color}}" ng-show="!col.hide">
           <div ng-include="col.include"></div>
     </div>
   </div>

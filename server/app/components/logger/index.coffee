@@ -5,8 +5,10 @@ transports = [];
 
 winston.remove winston.transports.Console if config.isProduction
 
+console.info config.root + config.logfile
+
 winston.add winston.transports.File,
-  filename: config.logfile
+  filename: config.root + config.logfile
   maxsize: 20000
 
 module.exports = winston

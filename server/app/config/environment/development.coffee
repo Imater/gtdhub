@@ -1,5 +1,4 @@
 "use strict"
-
 # Development specific configuration
 # ==================================
 module.exports =
@@ -22,4 +21,4 @@ module.exports =
     login: "app"
     password: "gtdhubapp"
 
-  logfile: "../../logs/winston/service-app.log"
+  logfile: "logs/winston/service-app.log"

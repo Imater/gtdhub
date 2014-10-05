@@ -1,9 +1,43 @@
 'use strict'
 
+angular.module("pmkr.memoize", []).factory "pmkr.memoize", [->
+  service = ->
+    memoizeFactory.apply this, arguments
+  memoizeFactory = (fn) ->
+    memoized = ->
+      args = [].slice.call(arguments)
+      key = JSON.stringify(args)
+      return cache[key]  if cache.hasOwnProperty(key)
+      cache[key] = fn.apply(this, arguments)
+      cache[key]
+    cache = {}
+    memoized
+  service
+]
+
+angular.module("pmkr.filterStabilize", ["pmkr.memoize"]).factory "pmkr.filterStabilize", [
+  "pmkr.memoize"
+  (memoize) ->
+    service = (fn) ->
+      filter = ->
+        args = [].slice.call(arguments)
+
+        # always pass a copy of the args so that the original input can't be modified
+        args = angular.copy(args)
+
+        # return the `fn` return value or input reference (makes `fn` return optional)
+        filtered = fn.apply(this, args) or args[0]
+        filtered
+      memoized = memoize(filter)
+      memoized
+    return service
+]
+
 angular.module('gtdhubApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
+  'pmkr.filterStabilize'
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap'

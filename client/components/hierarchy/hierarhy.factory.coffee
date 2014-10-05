@@ -9,9 +9,9 @@ angular.module('gtdhubApp').factory 'Hierarhy', ->
     addChild: (child) ->
       @childs.push child
       child.level = @level + 1
-      @parents = [] if !@parents
-      child.parent = @
-      child.path = @path.concat [@]
+      #@parents = [] if !@parents
+      #child.parent = @
+      #child.path = @path.concat [@]
       child
     getFind: (answer = [], mapFn)->
       answer.push result if mapFn and (result = mapFn(@))
