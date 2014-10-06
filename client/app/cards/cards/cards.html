@@ -9,25 +9,23 @@
     <div class="card-row"
          ng-repeat="row in tree.childs | pmkr.partition:3">
       <div ng-repeat="tree in row" class="card-line">
-        <div class="title-wrap"
+        <div class="title-wrap bottom-color-{{tree.colorIndex}}"
           ng-class="{active: row.showChilds.id == tree.id}">
           <div class="card-text">
-            {{tree.id}}
+            {{tree.text}}
           </div>
           <div class="title-bottom"
-               style="background: {{tree.background_light}}"
                ng-click="toggleOpenChilds(row, tree)">
             {{tree.title}} ({{tree.childs.length}})
           </div>
-          <div class="arrow_box"
-               style="color: {{tree.background_light}} };">
+          <div class="arrow_box">
             &nbsp;
           </div>
         </div>
       </div>
       <div ng-if="tree = row.showChilds"
-           style="background: {{tree.background_light}}">
-        <div class="card-line-wrap" ng-include="'/card-line.html'"></div>
+           class="card-line-wrap background-color-{{tree.colorIndex}}">
+        <div class="" ng-include="'/card-line.html'"></div>
       </div>
     </div>
 </script>
