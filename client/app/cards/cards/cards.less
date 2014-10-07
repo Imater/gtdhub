@@ -40,13 +40,16 @@
     padding-left: 7px;
     padding-right: 7px;
     border-radius: 15px;
+    padding-top: 35px;
     .card-line {
       color: #000;
       background: inherit;
       display: inline-block;
       width: 33%;
-      padding: 30px 20px;
+      padding: 20px 20px;
+      padding-top: 10px;
       .title-wrap {
+        margin-top: 20px;
         display: inline-block;
         margin: 5px;
         margin-top: 10px;
@@ -56,6 +59,7 @@
         position: relative;
         box-shadow: 0 2px 6px rgba(0,0,0,0.9);
         padding: 10px;
+        opacity: 0.9;
         .card-text {
           overflow: hidden;
           position: absolute;
@@ -70,10 +74,16 @@
           opacity: 0;
         }
         &.active {
-          box-shadow: none;
           .title-bottom {
-            //padding-bottom: 42px;
-            bottom: -35px;
+            opacity: 1;
+            padding-bottom: 37px;
+            left: -5px;
+            right: -5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            bottom: -30px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
             z-index: 1;
           }
           .arrow_box {
@@ -81,7 +91,7 @@
           }
         }
         .title-bottom {
-          box-shadow: 0px -1px 3px rgba(0,0,0,0.5);
+          //box-shadow: 0px -1px 3px rgba(0,0,0,0.5);
           position: absolute;
           color: #FFF;
           font-weight: bold;
@@ -133,28 +143,28 @@
   color-13,
   color-14,
   color-15;
-@color-0: #ff0d00;
-@color-1: #ff0080;
-@color-2: #eb00c0;
-@color-3: #ad00e3;
-@color-4: #7000ff;
-@color-5: #3500fb;
-@color-6: #005dfb;
-@color-7: #008afb;
-@color-8: #00cbc1;
-@color-9: #00d549;
-@color-10: #53b800;
-@color-11: #bacc00;
-@color-12: #c32d00;
+@color-0: #c80d00;
+@color-1: #1900c4;
+@color-2: #a2002e;
+@color-3: #005dfb;
+@color-4: #a33e8c;
+@color-5: #008afb;
+@color-6: #733e80;
+@color-7: #008a2f;
+@color-8: #7000ff;
+@color-9: #00a69c;
+@color-10: #899900;
+@color-11: #c32d00;
+@color-12: #53b800;
 @color-13: #a3004f;
 @color-14: #4a2bff;
-@color-15: #ff8000;
+@color-15: #ae5700;
 
 .card-wrap {
   .background {
     .for(@list); .-each(@value) {
       &-@{value} {
-        background: lighten(@@value, 45%);
+        background: fade(lighten(@@value, 48%), 25%);
         border-color: darken(@@value, 0%);
         border-bottom-color: lighten(@@value, 5%);
       }
