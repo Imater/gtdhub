@@ -17,7 +17,7 @@ angular.module('gtdhubApp').controller 'SplitCtrl', ($scope) ->
     ,
       {
         width: 80
-        color: '#cbcac8'
+        color: '#4D7AB5'
         include: 'app/cards/cards/cards.html'
 
       }

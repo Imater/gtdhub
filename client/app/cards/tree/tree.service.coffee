@@ -4,13 +4,13 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
   # AngularJS will instantiate a singleton by calling 'new' on this function
 
   MAX_COLOR_STYLES = 15
-  lastIndex = 0;
+  lastIndex = 1;
   randomColor = ->
     #randomIndex = Math.round(Math.random()*(colors.length-1))
     if lastIndex < MAX_COLOR_STYLES-1
       lastIndex++
     else
-      lastIndex = 0
+      lastIndex = 1
     lastIndex
 
   text = [

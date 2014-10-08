@@ -65,7 +65,7 @@ angular.module('gtdhubApp').directive "jqShowEffect", [
 angular.module('gtdhubApp').controller 'CardsTreeCtrl', ($scope, treeSrv, $stateParams) ->
   $scope.$stateParams = $stateParams
   $scope.trees = treeSrv.get()
-
+  $scope.COL_AMOUNT = 4
   $scope.toggleOpenChilds = (row, tree)->
     if (row.showChilds && row.showChilds.id == tree.id)
       row.showChilds = undefined
