@@ -1,6 +1,6 @@
 <div class="card-wrap" ng-controller="CardsTreeCtrl">
   <div ng-if="tree = trees">
-      <div class="card-line-wrap" ng-include="'/card-line.html'"></div>
+      <div class="card-line-wrap always-visible" ng-include="'/card-line.html'"></div>
   </div>
 </div>
 
@@ -24,6 +24,8 @@
         </div>
       </div>
       <div ng-if="tree = row.showChilds"
+           jq-show-effect="tree"
+           jq-options="{type:'slide', duration:200, delay:50, hideImmediately: true}"
            class="card-line-wrap background-color-{{tree.colorIndex}}">
         <div class="" ng-include="'/card-line.html'"></div>
       </div>
