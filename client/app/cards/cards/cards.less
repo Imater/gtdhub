@@ -42,18 +42,6 @@
   border: none !important;
 }
 
-.row-open {
-  & > .card-line {
-    .title-wrap {
-      z-index: 0 !important;
-    }
-    .title-bottom {
-      border-bottom: none !important;
-      padding-top: 9px !important;
-    }
-  }
-}
-
 
 .card-wrap {
   padding-bottom: 50px;
@@ -107,7 +95,7 @@
           opacity: 1;
           .title-bottom {
             border-bottom: none;
-            padding-bottom: 9px;
+            padding-bottom: 10px !important;
             z-index: 1;
           }
         }
@@ -128,6 +116,19 @@
   }
 }
 
+
+.row-open {
+  & > .card-line {
+    .title-wrap {
+      z-index: 0;
+    }
+    .title-bottom {
+      border-bottom: none !important;
+      padding-bottom: 9px !important;
+      padding-top: 8px !important;
+    }
+  }
+}
 
 
 // ............................................................
