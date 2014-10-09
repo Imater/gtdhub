@@ -29,7 +29,7 @@
            jq-options="{type:'slide', duration:200, delay:50, hideImmediately: true}"
            class="card-line-wrap background-color-{{tree.colorIndex}}">
         <div class="card-path">
-          <span ng-repeat="path in tree.getPath()">{{path}} <i class="fa fa-angle-right"></i> </span>
+          <span ng-repeat="path in tree.getPath().reverse()">{{path}} <i class="fa fa-angle-right"></i> </span>
           <span>{{tree.title}}</span>
         </div>
         <div class="" ng-include="'/card-line.html'"></div>
