@@ -6,7 +6,11 @@ angular.module("pmkr.memoize", []).factory "pmkr.memoize", [->
   memoizeFactory = (fn) ->
     memoized = ->
       args = [].slice.call(arguments)
-      key = JSON.stringify(args)
+      key = JSON.stringify args, (key, value)->
+        if key == "parent"
+          return "1"
+        else
+          return value
       return cache[key]  if cache.hasOwnProperty(key)
       cache[key] = fn.apply(this, arguments)
       cache[key]

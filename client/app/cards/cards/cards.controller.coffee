@@ -1,4 +1,5 @@
 'use strict'
+
 angular.module('gtdhubApp').filter "pmkr.partition", [
   "pmkr.filterStabilize"
   (stabilize) ->
