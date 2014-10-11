@@ -28,3 +28,10 @@ describe 'Model Tree', ->
     treeModel.set
       title: "New Title of task"
     expect(treeModel.get().title).toBe "New Title of task"
+
+  it 'can generate _id itself', ->
+    treeModel = new TreeModel
+      _id: "111"
+    treeModel.set
+      title: "New Title of task"
+    expect(treeModel.get()._id).toBe "111"

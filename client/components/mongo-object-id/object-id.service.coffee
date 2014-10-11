@@ -15,9 +15,8 @@ and converts between that format and the standard 24 character representation.
 ###
 'use strict'
 angular.module('gtdhubApp').service 'ObjectIdService', ->
-  increment = 0
   ObjectId = (->
-
+    increment = 0
     # Just always stick the value in.
     ObjId = ->
       return new ObjectId(arguments[0], arguments[1], arguments[2], arguments[3]).toString()  unless this instanceof ObjectId
