@@ -20,7 +20,7 @@ module.exports = (config) ->
       }
 
     reporters: [
-      'progress'
+      'dots'
     ]
 
   # testing framework to use (jasmine/mocha/qunit/...)

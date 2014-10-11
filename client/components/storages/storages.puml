@@ -1,0 +1,15 @@
+@startuml
+
+class Storages {
+  NameOfList
+}
+
+class Storage {
+  Name
+}
+
+Storages --|> Storage
+
+
+
+@enduml

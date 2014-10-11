@@ -97,12 +97,12 @@ module.exports = (grunt) ->
 
       jsTest:
         files: [
-          "<%= yeoman.client %>/{app,components}/**/*.spec.js"
-          "<%= yeoman.client %>/{app,components}/**/*.mock.js"
+          "<%= yeoman.client %>/{app,components}/**/*.spec.coffee"
+          "<%= yeoman.client %>/{app,components}/**/*.mock.coffee"
         ]
         tasks: [
-          "newer:jshint:all"
-          "karma"
+          #"newer:jshint:all"
+          "karma:unit"
         ]
 
       injectLess:
@@ -451,6 +451,10 @@ module.exports = (grunt) ->
       unit:
         configFile: "karma.conf.coffee"
         singleRun: true
+      "unit-tdd":
+        configFile: "karma.conf.coffee"
+        singleRun: false
+        autoWatch: true
       serve:
         configFile: "karma.conf.coffee"
         singleRun: false
@@ -587,6 +591,11 @@ module.exports = (grunt) ->
   grunt.registerTask "express-keepalive", "Keep grunt running", ->
     @async()
     return
+
+  grunt.registerTask "tdd-client", (target) ->
+    return grunt.task.run([
+      "karma:unit-tdd"
+    ])
 
   grunt.registerTask "serve", (target) ->
     if target is "dist"
