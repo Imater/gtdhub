@@ -1,0 +1,66 @@
+@startuml
+
+scale 1050 height
+box "Client" #LightBlue
+  participant "Local diffs" as dbDiffs
+  participant "Local db" as ldb
+  participant "Client App" as Client
+end box
+box "Server" #LightBlue
+  participant "Server App" as Server
+  participant "ServerDB" as sdb
+  participant "db History" as dbHistory
+end box
+[--> Client : Start sync
+==Client's collect changes==
+activate Client
+Client -> dbDiffs : get all "diffs"
+dbDiffs --> Client : send all "diffs"
+Client -> Client : get "need_send" ids\nfrom localStorage
+Client -> ldb : get all "need send" + new
+ldb --> Client : send all "need send" + new
+
+Client -> Server : Send: diffs (and hash of old), \nconfirms (id+hash), \n<i>"need send"</i> -\n(last time request and new_elements), \ncurrent time, oldLastSyncTime\n
+deactivate Client
+==Save Client's changes (if has changes or "need send")==
+activate Server
+Server -> sdb : Get element by id and hash
+alt if element exist
+sdb --> Server : send element "<i>curent element</i>"
+end
+alt if hash is equal (no changes)
+Server -> Server : apply client's Diff
+Server -> sdb : save old element to <b>history</b>
+sdb --> Server : ok
+Server -> sdb : save element
+sdb --> Server : ok
+else hash is not equal (changed by other client)
+Server -> sdb : find in <b>history</b> by diff
+
+alt if found in history by hash or <i>"need send"</i>
+sdb --> Server : old element from <b>history</b>
+else if not found in history by hash
+Server -> Server : Stop sync this element
+Server -> Server : Add id of element to "<i>need send</i>"
+end
+Server -> Server : Apply diff = "<i>current element</i>"
+Server -> Server : Merge "<i>client's element</i>" with\n "<i>current element</i>"
+Server -> sdb : Save "<i>current element</i>" to <b>history</b>
+Server -> sdb : Save "<i>client's element</i>" element to <b>history</b>
+Server -> sdb : Save merged element as current
+end
+
+==Get Server changes==
+Server -> sdb : Get all new from oldLastSyncTime
+sdb --> Server : New elements
+Server -> Server : Remove body from just changed New elements\n(confirm saving)
+Server -> Client : Send server's:\n - changes (except current + merged) \n<i>- "need send" (send me later)</i>\n - newLastSyncTime
+deactivate Server
+==Client's saving==
+activate Client
+Client -> Client : set "need_send" ids\nto localStorage
+Client -> dbDiffs : remove all diffs that confirmed
+dbDiffs --> Client : ok
+deactivate Client
+
+@enduml

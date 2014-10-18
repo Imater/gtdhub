@@ -40,7 +40,7 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
       @title = title || 'Новый проект'
       @colorIndex = randomColor()
       @text = text[Math.round(Math.random()*(text.length-1))]
-      @id = Id.get()
+      @_id = Id.get()
     addStage: (stage)->
       @stage = [] if !@stage
       @stage.push stage
@@ -59,21 +59,22 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
         return main
       else
         return main.getFind [], (el)->
-          el if el.id == parseInt(id)
+          el if el._id == parseInt(id)
 
       main
     load: ()->
       main = new Tree 'Дерево'
+      if false
+        for i in [0..50]
+          main.addChild new Tree 'Программа тренировок 8'
       main.open = true
       main2 = main.addChild new Tree 'Дневник'
       main2.open = true
       main3 = main2.addChild new Tree '2010 год'
-      miass = main3.addChild new Tree 'Январь'
       main8 = main2.addChild new Tree '2011 год'
       main9 = main8.addChild new Tree 'Январь'
       main9 = main8.addChild new Tree 'Февраль'
       main9 = main9.addChild new Tree '23 февраля'
-
       main2.addChild new Tree '2012 год'
       main2.addChild new Tree '2013 год'
       main2.addChild new Tree '2014 год'
@@ -109,8 +110,7 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
       s.addChild new Tree 'Программа тренировок 7'
       s.addChild new Tree 'Программа тренировок 8'
       main4.addChild new Tree 'Питание'
-
-
+      ###
       stage1 = miass.addStage new Stage { title: 'Back log', treeId: miass.id }
       stage1.addTask new Task {title: 'Сделать Drag&Drop'}
       stage1.addTask new Task {title: 'Посмотреть фильм'}
@@ -135,7 +135,7 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
       main3.addStage new Stage { title: 'To-do', treeId: miass.id }
       main3.addStage new Stage { title: 'Doing', treeId: miass.id }
       main3.addStage new Stage { title: 'Done', treeId: miass.id }
-
+      ###
 
       main
   treeSrv

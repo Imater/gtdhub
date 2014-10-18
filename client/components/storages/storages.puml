@@ -1,0 +1,77 @@
+@startuml
+
+class Storages {
+  +sync()
+}
+
+class Storage {
+  + name
+  - dataById
+  - dataByParentId
+  +add()
+  +count()
+  +mapReduce()
+  +getById()
+  +getByParentId()
+}
+
+class CommonModel {
+  +data.modelName
+  +data.dateCreate
+  +data._id
+  +data.parent_id
+  +data.order
+  -commits[]
+  +set() - "add diffs"
+  +get()
+  +delete()
+}
+
+class Commits {
+  +diffs[]
+  +currentHead
+  +setHead(commit)
+  +setCommit()
+  +getCommit()
+  +nameCommit()
+}
+
+class Commit {
+  +hash
+  +changeDate
+  +userId
+  +diff
+  +synced
+
+  +saveToDB()
+}
+
+Commits *-- Commit
+
+class TreeModel {
+  - defaultModel
+}
+
+class TaskModel {
+  - defaultModel
+}
+
+class SettingLocalModel {
+  - defaultModel
+}
+
+class SettingSyncModel {
+  - defaultModel
+}
+
+
+Storages "1" *-- "*" Storage
+Storage "1" *-- "*" CommonModel
+CommonModel *- Commits
+
+CommonModel <|--- TreeModel
+CommonModel <|--- TaskModel
+CommonModel <|--- SettingLocalModel
+CommonModel <|--- SettingSyncModel
+
+@enduml
