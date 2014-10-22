@@ -75,7 +75,7 @@ describe 'Git service', ->
 
     gitService2.commit gitService1, "first commit"
 
-  it 'make tree', ->
+  xit 'make tree', ->
     gitService = new GitService()
     tree = treeSrv.get()
     resultHash = gitService.addTree(tree);
@@ -83,7 +83,7 @@ describe 'Git service', ->
     restore = gitService.restoreTree(treeSrv._Tree, resultHash)
     expect(_.isEqual(tree, restore)).toBe true
 
-  it 'make history', ->
+  xit 'make history', ->
     gitService = new GitService()
     tree = treeSrv.get()
     history = []
@@ -100,7 +100,59 @@ describe 'Git service', ->
       thisTreeHash = JSON.parse(gitService.objects[hash]).tree
       restore = gitService.restoreTree(treeSrv._Tree, thisTreeHash)
       #console.info JSON.stringify restore, null, "\t"
-      console.info restore.title
-      console.info "RESTORE TREE =", new Date() - tm
     restore = gitService.restoreTree(treeSrv._Tree, resultHash)
     expect(_.isEqual(tree, restore)).toBe true
+
+  it 'make tree by big chunk', ->
+    gitService = new GitService()
+    tree = new treeSrv._Tree
+      title: "Главный узел"
+    tree.addChild new treeSrv._Tree
+      title: "Внук №1"
+    t = tree.addChild new treeSrv._Tree
+      title: "Внук №2"
+    t.addChild new treeSrv._Tree
+      title: "Внук внука"
+    #tree = treeSrv.get()
+    #console.info JSON.stringify tree, null, "\t"
+    resultHash = gitService.addTreeBig(tree);
+    gitService.addCommit(resultHash, "Первый коммит")
+    average = 30;
+    if true
+      _.each gitService.objects, (val, key)->
+        #console.info "------------#{key}-------------"
+        old_length = JSON.stringify(gitService.decompress(val)).length
+        new_length = val.length
+        #console.info gitService.decompress(val), Math.round((1 - new_length/old_length)*100)+"%"
+        average = average/2 + Math.round((1 - new_length/old_length)*100)/2
+      console.info "AVERAGE COMPRESS = ", average + " %"
+
+    restore = gitService.restoreTreeBig(treeSrv._Tree, resultHash)
+    gitService = new GitService()
+    for i in [0..500]
+      #console.info "----------------------------------------------"
+      tree.childs[0].blob.title = "Узел №"+i
+      tree.childs[0].blob.text = tree.childs[0].blob.text + " hello №" + i
+      tree.childs[1].blob.title = "Узел №"+i*10
+      if false
+        tree.addChild new treeSrv._Tree
+          title: "Ещё один внук №"+10+i+"!!!!!!!!!"
+      if i%10 == 1
+        resultHash = gitService.addTreeBig(tree)
+        gitService.addCommit(resultHash, "Первый коммит "+i)
+        console.info 'commit'
+      if false
+        _.each gitService.objects, (val, key)->
+          console.info key, JSON.stringify JSON.parse(val), null, "\t"
+    resultHash = gitService.addTreeBig(tree)
+    gitService.addCommit(resultHash, "Заключительный коммит")
+    console.info "BEFORE:", i, JSON.stringify(gitService).length, Object.keys(gitService.objects).length, resultHash
+    console.info JSON.stringify(restore).length
+    #console.info JSON.stringify tree, null, "\t"
+    #console.info JSON.stringify restore, null, "\t"
+    console.info _.isEqual(tree, restore)
+    gitService.gc()
+    console.info "AFTER:", i, JSON.stringify(gitService).length, Object.keys(gitService.objects).length, resultHash
+    #console.info JSON.stringify gitService, null, "\t"
+    #expect(_.isEqual(tree, restore)).toBe true
+

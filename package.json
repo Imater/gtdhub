@@ -20,6 +20,7 @@
     "grunt": "~0.4.4",
     "grunt-cli": "*",
     "grunt-coffee": "0.0.6",
+    "jsondiffpatch": "^0.1.17",
     "jsonwebtoken": "^0.3.0",
     "lodash": "^2.4.1",
     "method-override": "~1.0.0",

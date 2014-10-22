@@ -16,7 +16,7 @@ describe 'Service: Tree', ->
 
   it 'create object with title', ->
     tree = new Tree 'new title'
-    expect(tree.title).toBe 'new title'
+    expect(tree.blob.title).toBe 'new title'
 
   it 'addChild method', ->
     tree = new Tree 'new parent title'

@@ -37,13 +37,17 @@ angular.module('gtdhubApp').service 'treeSrv', (Hierarhy, Id, Stage, Task) ->
   class Tree extends Hierarhy
     constructor: (title) ->
       super
-      @title = title || 'Новый проект'
-      @colorIndex = randomColor()
-      @text = text[Math.round(Math.random()*(text.length-1))]
-      @_id = Id.get()
+      @blob = {}
+      @info = {}
+
+      @blob.title = title || 'Новый проект'
+      @blob.colorIndex = 1
+      @blob.text = text[Math.round(Math.random()*(text.length-1))] + text[Math.round(Math.random()*(text.length-1))] + text[Math.round(Math.random()*(text.length-1))]
+      @info._id = Id.get()
+      @info.time = new Date().getTime()
     addStage: (stage)->
-      @stage = [] if !@stage
-      @stage.push stage
+      @blob.stage = [] if !@stage
+      @blob.stage.push stage
       stage
 
 
