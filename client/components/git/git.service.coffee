@@ -51,7 +51,7 @@ angular.module('gtdhubApp').service 'GitService', (ShaService, GitObject, Traver
       , []
 
       _.each result, (value, key)->
-        self.add({type: key, blob: value});
+        self.add({type: key, blob: value})
       console.info JSON.stringify result, null, "\t"
       return result
 
@@ -198,7 +198,6 @@ angular.module('gtdhubApp').service 'GitService', (ShaService, GitObject, Traver
           else
             prevId = val.id
             baseObject = self.getObject(val.hash)
-            console.info "BIGGER"
 
 
       console.info "gc time = " + (new Date().getTime() - tm) + "ms"

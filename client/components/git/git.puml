@@ -22,19 +22,20 @@ class Tree {
 }
 
 class Commit {
-  hash
-  type
+  +hash
+  -type
   parent
   author
   commiter
   text
+  goHome()
 }
 
 class Tag {
 }
 
 Object <|--Tree
-Object <|--Blob
+Object --|> Blob
 Object <|--Commit
 Object <|--Tag
 

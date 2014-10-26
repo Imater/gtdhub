@@ -103,7 +103,7 @@ describe 'Git service', ->
     restore = gitService.restoreTree(treeSrv._Tree, resultHash)
     expect(_.isEqual(tree, restore)).toBe true
 
-  it 'make tree by big chunk', ->
+  xit 'make tree by big chunk', ->
     gitService = new GitService()
     tree = new treeSrv._Tree
       title: "Главный узел"
@@ -155,4 +155,17 @@ describe 'Git service', ->
     console.info "AFTER:", i, JSON.stringify(gitService).length, Object.keys(gitService.objects).length, resultHash
     #console.info JSON.stringify gitService, null, "\t"
     #expect(_.isEqual(tree, restore)).toBe true
+
+
+  xit "Test of merge", ->
+    console.info "Merge"
+    text1 = t: "Я вам пишу , чего же более, что я ещё могу сказать"
+    text2 = t: "Я вам господин пишу , чего же более, что я ещё могу сказать"
+    text3 = t: "Я милый мой пишу , чего же более, что я ещё могу хорошего сказать"
+    diff12 = jsondiffpatch.diff(text2, text1)
+    diff13 = jsondiffpatch.diff(text3, text1)
+    middleResult = jsondiffpatch.unpatch(text1, diff12)
+    result = jsondiffpatch.unpatch(middleResult, diff13)
+    console.info result, middleResult, diff12, diff13
+
 

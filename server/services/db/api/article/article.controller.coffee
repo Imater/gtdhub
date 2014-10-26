@@ -44,9 +44,9 @@ exports.show = (req, res) ->
 exports.create = (req, res) ->
   logger.profile "Article create"
   Article.create req.body, (err, article) ->
-    return handleError(res, err)  if err
-    logger.profile "Article create"
     res.json 201, article
+    logger.profile "Article create"
+    return handleError(res, err)  if err
 
 exports.update = (req, res) ->
   logger.profile "Article update #{req.params.id}"

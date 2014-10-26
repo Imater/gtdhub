@@ -2,7 +2,7 @@
 
 angular.module('gtdhubApp').service 'GitObject', (ShaService)->
   class GitObject
-    needCompress: false
+    needCompress: true
     constructor: (jsonBlob)->
       stringifyBlob = JSON.stringify jsonBlob
       @hash = ShaService.sha(stringifyBlob)

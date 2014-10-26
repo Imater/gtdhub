@@ -4,6 +4,8 @@ coverage
 .tmp
 .sass-cache
 .idea
+/.swp
+logs
 client/bower_components
 dist
 **/*.map
