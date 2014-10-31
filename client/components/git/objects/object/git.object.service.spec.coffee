@@ -1,9 +1,9 @@
 'use strict'
 
 describe 'Git object', ->
-
+  sampleText = "This is sample text for me"
   # load the controller's module
-  beforeEach module('gtdhubApp')
+  beforeEach module('gitStorage')
 
   GitObject = undefined
   beforeEach inject (_GitObject_) ->
@@ -17,6 +17,6 @@ describe 'Git object', ->
     gitObject2 = new GitObject("Short text")
     expect(gitObject1.name).toBe gitObject2.name
 
-  xit 'save blob to object', ->
-    gitObject = new GitObject("New text to be object")
-    console.info gitObject.get()
+  it 'save blob to object', ->
+    gitObject = new GitObject(sampleText)
+    expect(gitObject.get()).toBe sampleText

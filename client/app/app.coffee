@@ -37,15 +37,17 @@ angular.module("pmkr.filterStabilize", ["pmkr.memoize"]).factory "pmkr.filterSta
     return service
 ]
 
+console.info "App started"
 angular.module('gtdhubApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
+  'ngCookies'
+  'ngResource'
+  'ngSanitize'
   'pmkr.filterStabilize'
-  'btford.socket-io',
-  'ui.router',
+  'btford.socket-io'
+  'ui.router'
   'ui.bootstrap'
   'angular-redactor'
+  'gitStorage'
 ]).config ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) ->
   $urlRouterProvider
   .otherwise '/cards/tree/'

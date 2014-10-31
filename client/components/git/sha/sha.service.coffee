@@ -1,10 +1,10 @@
 'use strict'
 
-angular.module('gtdhubApp').service 'ShaService', ()->
+angular.module('gitStorage').service 'GitSha', ()->
   sha = (blob) ->
     blob = "" if !blob
     shaObj = new jsSHA(blob, "TEXT")
-    shaObj.getHash("SHA-1", "HEX").substr(0,15)
+    shaObj.getHash("SHA-1", "HEX")
   return { sha: sha }
 
 

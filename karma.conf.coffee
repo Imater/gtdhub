@@ -42,6 +42,7 @@ module.exports = (config) ->
       "client/bower_components/jssha/src/sha1.js"
       "client/bower_components/google-diff-match-patch/diff_match_patch.js"
       "client/bower_components/jsondiffpatch/public/build/jsondiffpatch-full.js"
+      "client/components/git/git.service.coffee"
       #"client/app/app.js"
       "client/app/app.coffee"
       "client/bower_components/pako/dist/pako.min.js"

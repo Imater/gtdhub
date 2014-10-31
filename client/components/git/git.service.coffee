@@ -1,6 +1,6 @@
 'use strict'
-
-angular.module('gtdhubApp').service 'GitService', (ShaService, GitObject, Traverse)->
+console.info "gitStorage starte"
+angular.module('gitStorage', []).service 'GitService', (GitObject)->
   class GitService
     constructor: ()->
       @objects = {}
@@ -41,20 +41,6 @@ angular.module('gtdhubApp').service 'GitService', (ShaService, GitObject, Traver
         time: new Date().getTime()
         hash: "jj"
       @addObject commit
-    makeTree: (tree)->
-      self = @
-      traverse = new Traverse(tree)
-      result = traverse.reduce (acc, x) ->
-        if (@isLeaf)
-          acc.push(x)
-        acc
-      , []
-
-      _.each result, (value, key)->
-        self.add({type: key, blob: value})
-      console.info JSON.stringify result, null, "\t"
-      return result
-
     addTree: (tree)->
       self = @
       gitTree = []

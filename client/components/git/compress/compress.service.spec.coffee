@@ -2,11 +2,10 @@
 
 describe 'Git object', ->
   sampleText = """
-    my father best men in the world and world is big and nice like world in world
-    """
-  testAmount = 500
+    like world in world in the world world world"""
+  testAmount = 5
   # load the controller's module
-  beforeEach module('gtdhubApp')
+  beforeEach module('gitStorage')
 
   CompressService = undefined
   beforeEach inject (_CompressService_) ->
@@ -20,7 +19,6 @@ describe 'Git object', ->
     t = Date.now()
     for [0..testAmount]
       compressed = compressService.compress(sampleText)
-    console.info  "Pako", compressed.length, sampleText.length, Date.now() - t
     decompressed = compressService.decompress(compressed)
     expect(decompressed).toBe sampleText
 
@@ -30,7 +28,6 @@ describe 'Git object', ->
     for [0..testAmount]
       compressed = compressService.compress(sampleText)
     decompressed = compressService.decompress(compressed)
-    console.info  "LZString", compressed.length, sampleText.length, Date.now() - t
     expect(decompressed).toBe sampleText
 
   it 'compress by GZip',  ->
@@ -39,5 +36,4 @@ describe 'Git object', ->
     for [0..testAmount]
       compressed = compressService.compress(sampleText)
     decompressed = compressService.decompress(compressed)
-    console.info  "Gzip", compressed.length, sampleText.length, Date.now() - t
     expect(decompressed).toBe sampleText

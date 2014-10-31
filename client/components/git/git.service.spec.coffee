@@ -3,19 +3,15 @@
 describe 'Git service', ->
 
   # load the controller's module
-  beforeEach module('gtdhubApp')
+  beforeEach module('gitStorage')
 
   GitService = undefined
   GitObject = undefined
   ShaService = undefined
-  Traverse = undefined
-  treeSrv = undefined
-  beforeEach inject (_GitService_, _GitObject_, _ShaService_, _Traverse_, _treeSrv_) ->
+  beforeEach inject (_GitService_, _GitObject_, _GitSha_) ->
     GitService = _GitService_
     GitObject = _GitObject_
-    ShaService = _ShaService_
-    Traverse = _Traverse_
-    treeSrv = _treeSrv_
+    ShaService = _GitSha_
 
   xit 'exist task model', ->
     expect(GitService).toBeDefined()
