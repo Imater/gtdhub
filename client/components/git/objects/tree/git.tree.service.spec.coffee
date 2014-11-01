@@ -7,14 +7,13 @@ describe 'Git tree', ->
 
   GitTree = undefined
   GitObject = undefined
-  beforeEach inject (_GitTree_, _GitObject_) ->
+  beforeEach inject (_GitTree_) ->
     GitTree = _GitTree_
-    GitObject = _GitObject_
 
   it 'exist task model', ->
     expect(GitTree).toBeDefined()
 
-  it 'save blob to object', ->
+  it 'convert tree to and back', ->
     dir = [
       rights: "imater;valentina"
       type: "blob"
@@ -31,19 +30,10 @@ describe 'Git tree', ->
       hash: "dfs3343fdfd232"
       name: "text.txt"
     ]
-    t = Date.now()
-    gitTree = undefined
-    length = 0
-    length2 = 0
-    for [0..10]
-      gitTree = new GitTree(dir)
-      length += gitTree.getString().length
-      o = new GitObject(gitTree.getString())
-      length2 += o.blob.length
-      gitTree.getObjects()
-    console.info Date.now() - t + " ms", length, length2
-    console.info o
-
+    gitTree = new GitTree(dir)
+    for keyName of dir[0]
+      expect(gitTree.getObjects()[0][keyName]).toBe dir[0][keyName]
+    expect(JSON.stringify(dir).length).toBeGreaterThan gitTree.tree.length
 
 
 

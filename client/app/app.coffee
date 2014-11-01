@@ -37,7 +37,6 @@ angular.module("pmkr.filterStabilize", ["pmkr.memoize"]).factory "pmkr.filterSta
     return service
 ]
 
-console.info "App started"
 angular.module('gtdhubApp', [
   'ngCookies'
   'ngResource'

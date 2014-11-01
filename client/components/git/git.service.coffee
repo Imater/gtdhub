@@ -1,5 +1,4 @@
 'use strict'
-console.info "gitStorage starte"
 angular.module('gitStorage', []).service 'GitService', (GitObject)->
   class GitService
     constructor: ()->
