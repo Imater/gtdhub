@@ -1,14 +1,20 @@
 'use strict'
 
-angular.module('gitStorage').service 'GitTree', (CompressService)->
+angular.module('gitStorage').service 'GitTree', (CompressService, GitSha)->
   class GitTree
     constructor: (treeObjects)->
       self = @
       @tree = ""
       _.each treeObjects, (el, key)->
-        self.tree += "#{el.rights}\t#{el.type}\t#{el.hash}\t#{el.name}\n"
+        self.tree +=
+          "#{el.rights}\t"+
+          "#{el.type}\t"+
+          "#{el.hash}\t"+
+          "#{el.name}\n"
     getString: ()->
       @tree
+    getHash: ()->
+      GitSha.sha @tree
     getObjects: ()->
       objects = []
       lines = @tree.split("\n")

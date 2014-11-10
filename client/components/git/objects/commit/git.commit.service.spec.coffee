@@ -20,6 +20,7 @@ describe 'Git tree', ->
       parent: "parentCommitHASH"
       author: "imater@eugene.leonar@gmail.com"
       date: new GitDateTime().getDateTime()
+      message: 'hello'
     gitCommit = new GitCommit(dir)
     for keyName of dir
       expect(gitCommit.getObject()[keyName]).toBe dir[keyName]
@@ -30,6 +31,7 @@ describe 'Git tree', ->
       tree: "treeHASH"
       parent: "parentCommitHASH"
       author: "imater@eugene.leonar@gmail.com"
+      message: 'hello'
     gitCommit = new GitCommit(dir)
     expect(gitCommit.getObject(gitCommit).date).toBeDefined()
 

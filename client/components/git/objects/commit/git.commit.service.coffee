@@ -16,7 +16,8 @@ angular.module('gitStorage').service 'GitCommit', (GitDateTime)->
         tree\t#{el.tree}\n"+
         "#{parent}"+
         "author\t#{el.author}\n"+
-        "date\t#{date}"
+        "date\t#{date}\n"+
+        "message\t#{el.message}"
     getString: ()->
       @commit
     getObject: ()->
@@ -26,3 +27,4 @@ angular.module('gitStorage').service 'GitCommit', (GitDateTime)->
         cols = line.split("\t")
         object[cols[0]] = cols[1]
       object
+

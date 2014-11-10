@@ -1,9 +1,9 @@
 'use strict'
 
-describe 'Git object', ->
+describe 'Compress service', ->
   sampleText = """
     like world in world in the world world world"""
-  testAmount = 5
+  testAmount = 1
   # load the controller's module
   beforeEach module('gitStorage')
 
@@ -11,7 +11,7 @@ describe 'Git object', ->
   beforeEach inject (_CompressService_) ->
     CompressService = _CompressService_
 
-  it 'exist task model', ->
+  it 'compress service exists', ->
     expect(CompressService).toBeDefined()
 
   it 'compress and decompress', ->
