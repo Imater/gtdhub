@@ -36,6 +36,7 @@ describe 'Git main service', ->
       title: 'inside folder 1 title 4'
       text: 'sample text'
       childs: [
+        _id: '71'
         title: 'subchild'
         text: 'hello'
       ]
@@ -55,21 +56,19 @@ describe 'Git main service', ->
   it 'status work', ()->
     git = new Git()
     expect(git.status).toBeDefined()
-    tm = Date.now()
-    console.info 'status hash', git.status(sampleTree)
-    console.info 'tm = ', Date.now() - tm
-    showSizes(git)
+
   it 'commit', ()->
     git = new Git()
     tm = Date.now()
-    for i in [0..100]
+    for i in [0..5]
       sampleTree.push
+        _id: i
         title: "Hello"
-        text: "Sample text" + i
+        text: "Sample text"
       mainTree = git.status(sampleTree)
-      git.commit(mainTree, 'first commit')
+      git.commit(mainTree, "commit №#{i}")
       commitHash = git.gitStorageRef.get 'HEAD'
-    console.info 'tm = ', Date.now() - tm
     commitHash = git.gitStorageRef.get 'HEAD'
-    console.info commitHash, git.gitStorage.get commitHash
-    showSizes(git)
+    expect(git.log().length).toBe 6
+    tree = git.checkout(git.log()[0].hash)
+    console.info JSON.stringify tree, null, "  "

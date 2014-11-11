@@ -15,14 +15,15 @@ angular.module('gitStorage').service 'GitTree', (CompressService, GitSha)->
       @tree
     getHash: ()->
       GitSha.sha @tree
-    getObjects: ()->
+    getObjects: (tree)->
       objects = []
-      lines = @tree.split("\n")
+      lines = tree.split("\n")
       _.each lines, (line, key) ->
-        cols = line.split("\t")
-        objects.push
-          rights: cols[0]
-          type: cols[1]
-          hash: cols[2]
-          name: cols[3]
+        if line != ''
+          cols = line.split("\t")
+          objects.push
+            rights: cols[0]
+            type: cols[1]
+            hash: cols[2]
+            name: cols[3]
       objects

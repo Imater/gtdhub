@@ -32,7 +32,7 @@ describe 'Git tree', ->
     ]
     gitTree = new GitTree(dir)
     for keyName of dir[0]
-      expect(gitTree.getObjects()[0][keyName]).toBe dir[0][keyName]
+      expect(gitTree.getObjects(gitTree.getString())[0][keyName]).toBe dir[0][keyName]
     oldLength = JSON.stringify(dir).length
     expect(oldLength).toBeGreaterThan gitTree.tree.length
 

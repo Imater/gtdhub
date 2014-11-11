@@ -20,8 +20,8 @@ describe 'Git storage', ->
     gitStorage2 = new GitStorage('db2')
     gitStorage1.set('first_param', 'first value')
     gitStorage2.set('second_param', 'second value')
-    gitStorage2.set('digital_param', 777)
+    gitStorage2.set('digital_param', '777')
     expect(gitStorage1.get('first_param')).toBe 'first value'
     expect(gitStorage2.get('first_param')).toBe undefined
     expect(gitStorage2.get('second_param')).toBe 'second value'
-    expect(gitStorage2.get('digital_param')).toBe 777
+    expect(gitStorage2.get('digital_param')).toBe '777'

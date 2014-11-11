@@ -3,6 +3,7 @@
 angular.module('gitStorage').service 'GitCommit', (GitDateTime)->
   class GitCommit
     constructor: (commitObject)->
+      return if !commitObject
       self = @
       @commit = ""
       el = commitObject
@@ -20,9 +21,9 @@ angular.module('gitStorage').service 'GitCommit', (GitDateTime)->
         "message\t#{el.message}"
     getString: ()->
       @commit
-    getObject: ()->
+    getObject: (commit)->
       object = {}
-      lines = @commit.split("\n")
+      lines = commit.split("\n")
       _.each lines, (line) ->
         cols = line.split("\t")
         object[cols[0]] = cols[1]

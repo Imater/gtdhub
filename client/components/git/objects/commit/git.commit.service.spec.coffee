@@ -23,7 +23,7 @@ describe 'Git tree', ->
       message: 'hello'
     gitCommit = new GitCommit(dir)
     for keyName of dir
-      expect(gitCommit.getObject()[keyName]).toBe dir[keyName]
+      expect(gitCommit.getObject(gitCommit.getString())[keyName]).toBe dir[keyName]
     expect(JSON.stringify(dir).length).toBeGreaterThan gitCommit.commit.length
 
   it 'Make commit without dateTime', ->
@@ -33,5 +33,5 @@ describe 'Git tree', ->
       author: "imater@eugene.leonar@gmail.com"
       message: 'hello'
     gitCommit = new GitCommit(dir)
-    expect(gitCommit.getObject(gitCommit).date).toBeDefined()
+    expect(gitCommit.getObject(gitCommit.getString()).date).toBeDefined()
 
