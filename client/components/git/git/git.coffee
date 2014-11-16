@@ -1,10 +1,11 @@
 'use strict'
 
-angular.module('gitStorage').service 'Git', (GitStorage, GitTree, GitObject, GitCommit, GitDateTime)->
+angular.module('gitStorage').service 'Git', (GitStorage, GitTree, GitObject, GitCommit, GitDateTime, GitDiff, GitPack)->
   class Git
     constructor: (gitName)->
       @gitStorage = new GitStorage(gitName)
       @gitStorageRef = new GitStorage("#{gitName} ref")
+      @gitStoragePack = new GitStorage("#{gitName} pack")
       @rights = "i"
     status: (tree)->
       @_getTree(tree)
@@ -17,6 +18,51 @@ angular.module('gitStorage').service 'Git', (GitStorage, GitTree, GitObject, Git
       @_checkout(commitHash)
     gc: ()->
       @_gc()
+    get: (key)->
+      storage = @_getPacked key
+      if !storage
+        storage = @gitStorage.get key
+      return storage
+    pack: (currentHash, baseHash) ->
+      current = @get currentHash
+      base = @get baseHash
+      gitDiff = new GitDiff()
+      patch = gitDiff.patchMake base, current
+      @_setPacked currentHash, patch, baseHash, base
+      patch
+    _setPacked: (hash, patch, baseHash, base) ->
+      pack = new GitPack
+        hash: hash
+        type: 'type'
+        size: 77
+        deep: 1
+        baseHash: baseHash
+        diff: patch
+      packString = pack.getString()
+      @gitStoragePack.set hash, packString
+      @gitStorage.delete hash
+      if !@gitStoragePack.get baseHash
+        pack = new GitPack
+          hash: hash
+          type: 'type2'
+          size: 88
+          blob: base
+        @gitStoragePack.set baseHash, pack.getString()
+        @gitStorage.delete baseHash
+    _getPacked: (hash) ->
+      foundPack = @gitStoragePack.get hash
+      return undefined if !foundPack
+
+      packString = foundPack
+      packObject = new GitPack().get(packString)
+      if packObject.diff
+        base = @get packObject.baseHash
+        console.info 'TRUBLE!!!!', packObject.baseHash, base, JSON.stringify @, null, "  " if !base
+        gitDiff = new GitDiff()
+        return gitDiff.patchApply base, packObject.diff
+      else
+        return packObject.blob
+
     _log: (head, log = [])->
       commit = @gitStorage.get head
       commitObject = new GitCommit().getObject(commit)
@@ -148,7 +194,7 @@ angular.module('gitStorage').service 'Git', (GitStorage, GitTree, GitObject, Git
       prevType = undefined
       for object in objects
         if prevHash and object.type == prevType
-          @gitStorage.pack object.hash, prevHash
+          @pack object.hash, prevHash
         prevHash = object.hash
         prevType = object.type
 

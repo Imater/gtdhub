@@ -84,10 +84,22 @@ describe 'Git main service', ->
     showSizes(git)
     console.info JSON.stringify git.gitStorage, null, "  "
 
+  xit 'pack storage', ->
+    git = new Git('db1')
+    text1 = 'hello I need mome'
+    text2 = 'hello i need some time to change'
+    git.gitStorage.set 'h1', JSON.stringify text1 #first version
+    git.gitStorage.set 'h2', JSON.stringify text2 #second version
+    git.pack 'h1', 'h2'
+    expect git.gitStorage.get 'h1'
+      .toBeDefined()
+    expect git.gitStorage.get 'h2'
+      .toBeDefined()
+
   it 'test for gc', ->
     show = (git, message)->
       console.info "------------ #{message}-----------"
-      console.info JSON.stringify git.gitStorage, null, "  "
+      console.info JSON.stringify git, null, "  "
       console.info "size: #{git.gitStorage.length()}"
     sampleTree = [
       _id: 'd1'
