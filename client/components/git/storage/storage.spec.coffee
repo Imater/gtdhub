@@ -25,3 +25,22 @@ describe 'Git storage', ->
     expect(gitStorage2.get('first_param')).toBe undefined
     expect(gitStorage2.get('second_param')).toBe 'second value'
     expect(gitStorage2.get('digital_param')).toBe '777'
+
+  it 'pack storage', ->
+    gitStorage1 = new GitStorage('db1')
+    text1 = 'hello I need mome'
+    text2 = 'hello i need some time to change'
+    gitStorage1.set 'h1', JSON.stringify text1 #first version
+    gitStorage1.set 'h2', JSON.stringify text2 #second version
+    gitStorage1.pack 'h1', 'h2'
+    expect gitStorage1.get 'h1'
+      .toBeDefined()
+    expect gitStorage1.get 'h2'
+      .toBeDefined()
+
+
+
+
+
+
+

@@ -3,6 +3,7 @@
 angular.module('gitStorage').service 'GitTree', (CompressService, GitSha)->
   class GitTree
     constructor: (treeObjects)->
+      return null if !treeObjects
       self = @
       @tree = ""
       _.each treeObjects, (el, key)->
@@ -10,7 +11,8 @@ angular.module('gitStorage').service 'GitTree', (CompressService, GitSha)->
           "#{el.rights}\t"+
           "#{el.type}\t"+
           "#{el.hash}\t"+
-          "#{el.name}\n"
+          "#{el.name}\t"+
+          "#{el.size}\n"
     getString: ()->
       @tree
     getHash: ()->
@@ -26,4 +28,5 @@ angular.module('gitStorage').service 'GitTree', (CompressService, GitSha)->
             type: cols[1]
             hash: cols[2]
             name: cols[3]
+            size: parseInt(cols[4], 10)
       objects

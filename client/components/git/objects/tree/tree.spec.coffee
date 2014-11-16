@@ -18,16 +18,19 @@ describe 'Git tree', ->
       rights: "imater;valentina"
       type: "blob"
       hash: "dfs3343fdfd232"
+      size: 1000
       name: "text.txt"
     ,
       rights: "imater;valentina"
       type: "blob"
       hash: "d3s3343fdfd232"
+      size: 1001
       name: "text2.txt"
     ,
       rights: "imater"
       type: "blob"
       hash: "dfs3343fdfd232"
+      size: 1002
       name: "text.txt"
     ]
     gitTree = new GitTree(dir)

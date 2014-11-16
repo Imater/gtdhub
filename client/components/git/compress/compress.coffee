@@ -9,6 +9,11 @@ angular.module('gitStorage').service 'CompressService', () ->
     decompress: (blob) ->
       @realization[@method].decompress(blob)
     realization:
+      None:
+        compress: (blob) ->
+          blob
+        decompress: (blob) ->
+          blob
       LZString:
         compress: (blob) ->
           LZString.compressToUTF16 blob

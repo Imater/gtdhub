@@ -11,11 +11,8 @@ describe 'Git main service', ->
     title: 'title 1'
     text: 'sample text first'
   ,
-    _id: '2'
-    title: 'title 2'
-    text: 'sample text first'
     childs: [
-      _id: '6'
+      _id: '26'
       title: 'inside folder 1 title 3'
       text: 'sample text first'
       tasks: [
@@ -41,6 +38,9 @@ describe 'Git main service', ->
         text: 'hello'
       ]
     ]
+    _id: '2'
+    title: 'title 2'
+    text: 'sample text first'
   ]
 
   showSizes = (git)->
@@ -57,18 +57,68 @@ describe 'Git main service', ->
     git = new Git()
     expect(git.status).toBeDefined()
 
-  it 'commit', ()->
+  xit 'commit', ()->
     git = new Git()
     tm = Date.now()
-    for i in [0..5]
+    for i in [0..10]
+      sampleTree.push
+        _id: i*2
+        title: "Hello"+i*100000
+        text: JSON.stringify angular
       sampleTree.push
         _id: i
-        title: "Hello"
-        text: "Sample text"
+        title: "Hello"+i*100000
+        text: "Sample text" + i
       mainTree = git.status(sampleTree)
       git.commit(mainTree, "commit №#{i}")
       commitHash = git.gitStorageRef.get 'HEAD'
     commitHash = git.gitStorageRef.get 'HEAD'
-    expect(git.log().length).toBe 6
-    tree = git.checkout(git.log()[0].hash)
-    console.info JSON.stringify tree, null, "  "
+    expect(git.log().length).toBeGreaterThan 6
+    tm = Date.now()
+    tree = git.checkout(git.log()[5].hash)
+    console.info 'checkout time = ', Date.now() - tm
+    showSizes(git)
+    tm = Date.now()
+    gc = git.gc()
+    console.info Date.now() - tm, ' ms duration gc'
+    showSizes(git)
+    console.info JSON.stringify git.gitStorage, null, "  "
+
+  it 'test for gc', ->
+    show = (git, message)->
+      console.info "------------ #{message}-----------"
+      console.info JSON.stringify git.gitStorage, null, "  "
+      console.info "size: #{git.gitStorage.length()}"
+    sampleTree = [
+      _id: 'd1'
+      text: ''
+    ,
+      _id: 'd2'
+      text: ''
+    ]
+
+    git = new Git()
+    mainTree = git.status sampleTree
+    show git, 'init'
+    git.commit mainTree, 'init commit'
+    show git, 'add commit'
+
+    git.commit mainTree, 'init commit'
+    show git, 'add commit'
+
+    sampleTree[0].text = 'First text'
+    sampleTree[1].text = 'Second text'
+    mainTree = git.status sampleTree
+    git.commit mainTree, 'commit 1'
+    show git, 'add some changes'
+
+    sampleTree[0].text = 'First text make bigger'
+    sampleTree[1].text = 'Second text make bigger too'
+    mainTree = git.status sampleTree
+    git.commit mainTree, 'commit 1'
+    show git, 'add some changes'
+
+    git.gc()
+    show git, 'gc'
+
+
