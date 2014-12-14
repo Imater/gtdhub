@@ -16,6 +16,17 @@ module.exports = (grunt) ->
   # Define the configuration for all the tasks
   grunt.initConfig {
     # Project settings
+    jade:
+      compile:
+        options:
+          client: false
+          pretty: true
+        files: [
+          src: "**/*.jade"
+          cwd: "client/app"
+          ext: ".html"
+          expand: true
+        ]
     yeoman:
       # configurable paths
       client: require("./bower.json").appPath or "client"
@@ -721,4 +732,5 @@ module.exports = (grunt) ->
     "express:dbService"
     "express-keepalive"
   ]);
+  grunt.loadNpmTasks "grunt-contrib-jade"
   return

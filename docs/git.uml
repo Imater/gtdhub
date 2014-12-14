@@ -1,0 +1,6 @@
+@startuml git.png
+class Tree
+class Git
+Git -> Tree : hello
+@enduml
+
